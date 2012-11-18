@@ -1,0 +1,23 @@
+//
+// Prefix header for all source files of the 'Test' target in the 'Test' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iPhone SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <GameKit/GameKit.h>
+#endif
+
+#define SESSION_ID @"ManU2012"
+#define RADIANS(degrees) ((degrees * M_PI) / 180.0)
+#define CAMERA_TRANSFORM                    1.12412
+#define CAMERA_TRANSFORM_X 1
+#define PTM_RATIO 32
+//#define CAMERA_TRANSFORM_Y 1.12412 //use this is for iOS 3.x
+#define CAMERA_TRANSFORM_Y 1.24299 // use this is for iOS 4.x
