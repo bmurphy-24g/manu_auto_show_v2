@@ -106,41 +106,53 @@ int currentLeftIndex = 0;
     
     NSLog(@"Loading images");
     //Button 1
-    NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[NSString stringWithFormat:@"http://a65724859e6559c43827-07ad0f7ce40dfee8df7f975329be3801.r13.cf1.rackcdn.com/%@.jpg", fileNames[0]]]];
-    curImageOne = [UIImage imageWithData: imageData];
-    [pictureOneButton setBackgroundColor:[UIColor clearColor]];
-    [pictureOneButton setBackgroundImage:curImageOne forState:UIControlStateNormal];
-    [pictureOneButton setEnabled:YES];
-    NSLog(@"image on loaded");
-    [imageData release];
+    if([fileNames count] > 0 && ![fileNames[0] isEqualToString:@"-1"])
+    {
+        NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[NSString stringWithFormat:@"http://a65724859e6559c43827-07ad0f7ce40dfee8df7f975329be3801.r13.cf1.rackcdn.com/%@.jpg", fileNames[0]]]];
+        curImageOne = [UIImage imageWithData: imageData];
+        [pictureOneButton setBackgroundColor:[UIColor clearColor]];
+        [pictureOneButton setBackgroundImage:curImageOne forState:UIControlStateNormal];
+        [pictureOneButton setEnabled:YES];
+        NSLog(@"image on loaded");
+        [imageData release];
+    }
     
-    //Button 2
-    imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[NSString stringWithFormat:@"http://a65724859e6559c43827-07ad0f7ce40dfee8df7f975329be3801.r13.cf1.rackcdn.com/%@.jpg", fileNames[1]]]];
-    curImageTwo = [UIImage imageWithData: imageData];
-    [pictureTwoButton setBackgroundColor:[UIColor clearColor]];
-    [pictureTwoButton setBackgroundImage:curImageTwo forState:UIControlStateNormal];
-    [pictureTwoButton setEnabled:YES];
-    NSLog(@"image two loaded");
-    [imageData release];
+    if([fileNames count] > 1 && ![fileNames[1] isEqualToString:@"-1"])
+    {
+        //Button 2
+        NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[NSString stringWithFormat:@"http://a65724859e6559c43827-07ad0f7ce40dfee8df7f975329be3801.r13.cf1.rackcdn.com/%@.jpg", fileNames[1]]]];
+        curImageTwo = [UIImage imageWithData: imageData];
+        [pictureTwoButton setBackgroundColor:[UIColor clearColor]];
+        [pictureTwoButton setBackgroundImage:curImageTwo forState:UIControlStateNormal];
+        [pictureTwoButton setEnabled:YES];
+        NSLog(@"image two loaded");
+        [imageData release];
+    }
     
     //Button 3
-    imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[NSString stringWithFormat:@"http://a65724859e6559c43827-07ad0f7ce40dfee8df7f975329be3801.r13.cf1.rackcdn.com/%@.jpg", fileNames[2]]]];
-    curImageThree = [UIImage imageWithData: imageData];
-    [pictureThreeButton setBackgroundColor:[UIColor clearColor]];
-    [pictureThreeButton setBackgroundImage:curImageThree forState:UIControlStateNormal];
-    [pictureThreeButton setEnabled:YES];
-    NSLog(@"image three loaded");
-    [imageData release];
+    if([fileNames count] > 2 && ![fileNames[2] isEqualToString:@"-1"])
+    {
+        NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[NSString stringWithFormat:@"http://a65724859e6559c43827-07ad0f7ce40dfee8df7f975329be3801.r13.cf1.rackcdn.com/%@.jpg", fileNames[2]]]];
+        curImageThree = [UIImage imageWithData: imageData];
+        [pictureThreeButton setBackgroundColor:[UIColor clearColor]];
+        [pictureThreeButton setBackgroundImage:curImageThree forState:UIControlStateNormal];
+        [pictureThreeButton setEnabled:YES];
+        NSLog(@"image three loaded");
+        [imageData release];
+    }
     
     //Button 4
-    imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[NSString stringWithFormat:@"http://a65724859e6559c43827-07ad0f7ce40dfee8df7f975329be3801.r13.cf1.rackcdn.com/%@.jpg", fileNames[3]]]];
-    curImageFour = [UIImage imageWithData: imageData];
-    [pictureFourButton setBackgroundColor:[UIColor clearColor]];
-    [pictureFourButton setBackgroundImage:curImageFour forState:UIControlStateNormal];
-    [pictureFourButton setEnabled:YES];
-    NSLog(@"image four loaded");
-    [imageData release];
-    imageData = nil;
+    if([fileNames count] > 3 && ![fileNames[3] isEqualToString:@"-1"])
+    {
+        NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[NSString stringWithFormat:@"http://a65724859e6559c43827-07ad0f7ce40dfee8df7f975329be3801.r13.cf1.rackcdn.com/%@.jpg", fileNames[3]]]];
+        curImageFour = [UIImage imageWithData: imageData];
+        [pictureFourButton setBackgroundColor:[UIColor clearColor]];
+        [pictureFourButton setBackgroundImage:curImageFour forState:UIControlStateNormal];
+        [pictureFourButton setEnabled:YES];
+        NSLog(@"image four loaded");
+        [imageData release];
+        imageData = nil;
+    }
 }
 
 -(IBAction)scrollLeftClicked:(id)sender
