@@ -80,7 +80,7 @@
         backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 187, 67)];
         [backButton setBackgroundImage:[UIImage imageNamed:@"back_btn.png"] forState:UIControlStateNormal];
         [backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        //[newView addSubview:backButton];
+        [newView addSubview:backButton];
         
         shareButton = [[UIButton alloc] initWithFrame:CGRectMake(553, 224, 411, 149)];
         [shareButton setBackgroundImage:[UIImage imageNamed:@"shareyourcard_btn.png"] forState:UIControlStateNormal];
@@ -142,6 +142,12 @@
     [shareWebView setAlpha:1.0f];
 }
 
+-(IBAction)backButtonPressed:(id)sender
+{
+    [newView removeFromSuperview];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[EnterYourInformationScene scene:self.currentImage :self.fileName] withColor:ccWHITE]];
+}
+
 -(IBAction)reloadButtonPressed:(id)sender
 {
     NSLog(@"reload pressed");
@@ -176,11 +182,6 @@
     //[urlAddress release];
     //[url release];
     //[requestObj release];
-}
-
--(IBAction)backButtonPressed:(id)sender
-{
-    NSLog(@"back button pressed");
 }
 
 -(IBAction)playButtonPressed:(id)sender

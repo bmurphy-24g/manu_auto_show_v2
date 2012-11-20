@@ -36,6 +36,13 @@
         [submitButton setBackgroundImage:[UIImage imageNamed:@"submit_btn.png"] forState:UIControlStateNormal];
         [submitButton addTarget:self action:@selector(submitButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         
+        backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [backButton setFrame:CGRectMake(0, 50, 187, 67)];
+        [backButton setBackgroundImage:[UIImage imageNamed:@"back_btn.png"] forState:UIControlStateNormal];
+        [backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [newImageView addSubview:backButton];
+        
         [newImageView addSubview:submitButton];
         //submitButton.transform = rotateTransform;
         
@@ -95,6 +102,12 @@
         [newImageView addSubview:positionPickerView];
 	}
 	return self;
+}
+
+-(IBAction)backButtonPressed:(id)sender
+{
+    [newImageView removeFromSuperview];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[SelectPhotoScene scene] withColor:ccWHITE]];
 }
 -(IBAction)playLaterButtonPressed:(id)sender
 {

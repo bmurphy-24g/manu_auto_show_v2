@@ -15,6 +15,7 @@
     CCSprite* bg;
     CGSize winSize;
     UIButton* submitButton;
+    UIButton* backButton;
     UIImage* currentImage;
     UIImageView* imageView;
     UITextField* firstNameTextField;
