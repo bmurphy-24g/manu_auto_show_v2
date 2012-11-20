@@ -21,7 +21,7 @@
     if (self) {
         // Custom initialization
         //imageView = [[UIImageView alloc] initWithFrame:CGRectMake(128, -128, 768, 1024)];
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(76, 115, 397, 532)];
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(116, 113, 316, 539)];
         UIImage *background = [UIImage imageNamed:@"background5.jpg"];
         UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:background];
         [self.view addSubview:backgroundImageView];
@@ -245,8 +245,9 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
                           objectForKey:UIImagePickerControllerOriginalImage];
                 
         UIImage* overlay = [UIImage imageNamed:@"camera_overlay.png"];
+        UIImage* playerOverlay = [UIImage imageNamed:@"playercard_overlay.png"];
         image = [UIImage imageWithCGImage:image.CGImage scale:image.scale orientation:UIImageOrientationRight];
-        UIImage* finalImage = [self addImageToImage:image :overlay];
+        UIImage* finalImage = [self addImageToImage:image :overlay :playerOverlay];
         
         [self.view addSubview:imageView];
         NSLog(@"w: %f h: %f", finalImage.size.width, finalImage.size.height);
@@ -266,19 +267,20 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [exitButton setEnabled:YES];
 }
 
-- (UIImage*) addImageToImage:(UIImage*)img:(UIImage*)img2{
-    CGSize size = CGSizeMake(img.size.width, img.size.height);
+- (UIImage*) addImageToImage:(UIImage*)img:(UIImage*)img2:(UIImage*)img3{
+    CGSize size = CGSizeMake(img3.size.width, img3.size.height);
     UIGraphicsBeginImageContext(size);
     
     NSLog(@"w: %f h: %f", img.size.width, img.size.height);
     
     //CGPoint pointImg1 = CGPointMake(0,0);
     //[img drawAtPoint:pointImg1 ];
-    [img drawInRect:CGRectMake(0, 0, img.size.width, img.size.height)];
+    [img drawInRect:CGRectMake(0, 0, 316, 423)];
     
     //CGPoint pointImage2 = CGPointMake(0, 0);
-    [img2 drawInRect:CGRectMake(0, 0, img.size.width, img.size.height)];
+    [img2 drawInRect:CGRectMake(0, 0, 316, 423)];
 
+    [img3 drawInRect:CGRectMake(0, 0, 316, 539)];
     
     UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
