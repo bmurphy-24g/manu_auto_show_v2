@@ -37,7 +37,11 @@
     UIImageView* smallPlayerOneImageView; 
     UIImageView* smallPlayerTwoImageView; 
     UILabel* smallPlayerOneNameLabel; 
-    UILabel* smallPlayerTwoNameLabel; 
+    UILabel* smallPlayerTwoNameLabel;
+    UILabel* scoreScreenPlayerOneShots;
+    UILabel* scoreScreenPlayerOneGoals;
+    UILabel* scoreScreenPlayerTwoShots;
+    UILabel* scoreScreenPlayerTwoGoals;
     
     CCSprite *player1;
     CCSprite *player2;
@@ -84,6 +88,8 @@
     
     
     UIView* largeView;
+    
+    NSTimer* scoreScreenTimer;
     
 }
 @property(nonatomic,retain) PhysicsSprite* SpriteLeft;

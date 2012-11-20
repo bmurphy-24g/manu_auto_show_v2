@@ -27,6 +27,8 @@ int LEFT_PLAYER_TAG = 6221, RIGHT_PLAYER_TAG = 6223;
 	return scene;
 }
 
+bool clientDisconnected = NO;
+
 -(id) init
 {
 	if( (self=[super init])) {
@@ -41,14 +43,25 @@ int LEFT_PLAYER_TAG = 6221, RIGHT_PLAYER_TAG = 6223;
         
         // 89x264 146x195
         playerOneImageView = [[UIImageView alloc] initWithFrame:CGRectMake(89, 263, 146, 195)];
+        playerOneImageView.contentMode = UIViewContentModeScaleAspectFit;
+        playerOneImageView.clipsToBounds = NO;
+        playerOneImageView.layer.masksToBounds = NO;
         
         // 777x264
         playerTwoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(777, 263, 146, 195)];
+        playerTwoImageView.contentMode = UIViewContentModeScaleAspectFit;
+        playerTwoImageView.clipsToBounds = NO;
+        playerTwoImageView.layer.masksToBounds = NO;
         
         // 10x470
         playerOneNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 469, 333, 45)];
         
         playerTwoNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(700, 469, 333, 45)];
+        
+        scoreScreenPlayerOneGoals = [[UILabel alloc] initWithFrame:CGRectMake(13, 306, 270, 45)];
+        scoreScreenPlayerOneShots = [[UILabel alloc] initWithFrame:CGRectMake(13, 383, 270, 45)];
+        scoreScreenPlayerTwoGoals = [[UILabel alloc] initWithFrame:CGRectMake(730, 306, 270, 45)];
+        scoreScreenPlayerTwoShots = [[UILabel alloc] initWithFrame:CGRectMake(730, 383, 270, 45)];
         
         // 524x157
         startGameButton = [[UIButton alloc] initWithFrame:CGRectMake(524, 157, 253, 106)];
@@ -107,7 +120,7 @@ int LEFT_PLAYER_TAG = 6221, RIGHT_PLAYER_TAG = 6223;
         
         [countdown spawn:self];
         
-        [self setUpWaitScreen];
+        [self setUpWaitScreen:YES];
 	}
 	return self;
 }
@@ -116,12 +129,8 @@ int LEFT_PLAYER_TAG = 6221, RIGHT_PLAYER_TAG = 6223;
 
 #pragma mark Wait Screen
 
--(void)setUpWaitScreen
+-(void)setUpWaitScreen: (bool)disconnected
 {
-    playerOneImage = nil;
-    playerOneName = @"";
-    playerTwoImage = nil;
-    playerTwoName = @"";
     NSHTTPURLResponse* urlResponse = nil;
     NSError *error = nil;
     NSString *urlString = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/resources/ios_tracking.php"];
@@ -137,30 +146,57 @@ int LEFT_PLAYER_TAG = 6221, RIGHT_PLAYER_TAG = 6223;
     NSLog(@"Finished talking to kevin");
     [request release];
     request = NULL;
-    
-    bg = [CCSprite spriteWithFile:@"begingame_background1.jpg"];
+    bg = [CCSprite spriteWithFile:@"results.jpg"];
     bg.position = ccp(winSize.width/2, winSize.height/2);
-    [self addChild:bg z:0 tag:420];
-
-    [playerOneImageView setImage:[UIImage imageNamed:@"silhouette.png"]];
-    [newView addSubview:playerOneImageView];
+    [self addChild:bg z:0 tag:421];
     
-    [playerTwoImageView setImage:[UIImage imageNamed:@"silhouette.png"]];
-    [newView addSubview:playerTwoImageView];
-    
-    [smallPlayerOneNameLabel setText:@""];
-    [smallPlayerTwoNameLabel setText:@""];
+    /*
+     [smallPlayerOneNameLabel setFont:[UIFont fontWithName:@"Arial" size:20]];
+     smallPlayerOneNameLabel.textAlignment = NSTextAlignmentLeft;
+    */
+    [scoreScreenPlayerOneGoals setText:[NSString stringWithFormat:@"Goals    %d", _leftScore_SERVER]];
+    [scoreScreenPlayerOneGoals setFont:[UIFont fontWithName:@"Arial" size:30]];
+    scoreScreenPlayerOneGoals.textAlignment = NSTextAlignmentRight;
+    [scoreScreenPlayerOneGoals setTextColor:[UIColor whiteColor]];
+    [scoreScreenPlayerOneGoals setBackgroundColor:[UIColor clearColor]];
+    [newView addSubview:scoreScreenPlayerOneGoals];
+    [scoreScreenPlayerOneShots setText:[NSString stringWithFormat:@"Shots on Goal    %d", _leftShotsOnGoal_SERVER]];
+    [scoreScreenPlayerOneShots setFont:[UIFont fontWithName:@"Arial" size:30]];
+    scoreScreenPlayerOneShots.textAlignment = NSTextAlignmentRight;
+    [scoreScreenPlayerOneShots setTextColor:[UIColor whiteColor]];
+    [scoreScreenPlayerOneShots setBackgroundColor:[UIColor clearColor]];
+    [newView addSubview:scoreScreenPlayerOneShots];
+    [scoreScreenPlayerTwoGoals setText:[NSString stringWithFormat:@"Goals    %d", _rightScore_SERVER]];
+    [scoreScreenPlayerTwoGoals setFont:[UIFont fontWithName:@"Arial" size:30]];
+    scoreScreenPlayerTwoGoals.textAlignment = NSTextAlignmentRight;
+    [scoreScreenPlayerTwoGoals setTextColor:[UIColor whiteColor]];
+    [scoreScreenPlayerTwoGoals setBackgroundColor:[UIColor clearColor]];
+    [newView addSubview:scoreScreenPlayerTwoGoals];
+    [scoreScreenPlayerTwoShots setText:[NSString stringWithFormat:@"Shots on Goal    %d", _rightShotsOnGoal_SERVER]];
+    [scoreScreenPlayerTwoShots setFont:[UIFont fontWithName:@"Arial" size:30]];
+    scoreScreenPlayerTwoShots.textAlignment = NSTextAlignmentRight;
+    [scoreScreenPlayerTwoShots setTextColor:[UIColor whiteColor]];
+    [scoreScreenPlayerTwoShots setBackgroundColor:[UIColor clearColor]];
+    [newView addSubview:scoreScreenPlayerTwoShots];
     
     [playerOneNameLabel setBackgroundColor:[UIColor clearColor]];
     [playerOneNameLabel setTextColor:[UIColor whiteColor]];
     [playerOneNameLabel setMinimumScaleFactor:100];
-    [playerOneNameLabel setText:@"Player 1"];
-    [newView addSubview:playerOneNameLabel];
     
     [playerTwoNameLabel setBackgroundColor:[UIColor clearColor]];
     [playerTwoNameLabel setTextColor:[UIColor blackColor]];
     [playerTwoNameLabel setMinimumScaleFactor:100];
-    [playerTwoNameLabel setText:@"Player 2"];
+    
+    if(!disconnected)
+    {
+        [playerOneNameLabel setText:playerOneName];
+        [playerTwoNameLabel setText:playerTwoName];
+    }
+    
+    [smallPlayerOneNameLabel setText:@""];
+    [smallPlayerTwoNameLabel setText:@""];
+    
+    [newView addSubview:playerOneNameLabel];
     [newView addSubview:playerTwoNameLabel];
     
     [startGameButton setBackgroundImage:[UIImage imageNamed:@"statgame_btn.png"] forState:UIControlStateNormal];
@@ -168,6 +204,44 @@ int LEFT_PLAYER_TAG = 6221, RIGHT_PLAYER_TAG = 6223;
     
     [startOnePlayerButton setBackgroundImage:[UIImage imageNamed:@"1player_btn.png"] forState:UIControlStateNormal];
     [startOnePlayerButton addTarget:self action:@selector(startOnePlayerPressedAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
+    
+    if(!disconnected)
+        scoreScreenTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(finishedScoreScreen) userInfo:nil repeats:NO];
+    else
+        [self finishedScoreScreen];
+}
+
+-(void)finishedScoreScreen
+{
+    [scoreScreenPlayerOneGoals setText:@""];
+    [scoreScreenPlayerOneShots setText:@""];
+    [scoreScreenPlayerTwoGoals setText:@""];
+    [scoreScreenPlayerTwoShots setText:@""];
+    [scoreScreenPlayerOneGoals removeFromSuperview];
+    [scoreScreenPlayerOneShots removeFromSuperview];
+    [scoreScreenPlayerTwoGoals removeFromSuperview];
+    [scoreScreenPlayerTwoShots removeFromSuperview];
+    
+    [self removeChildByTag:421 cleanup:NO];
+    bg = [CCSprite spriteWithFile:@"begingame_background1.jpg"];
+    bg.position = ccp(winSize.width/2, winSize.height/2);
+    [self addChild:bg z:0 tag:420];
+    [playerOneImageView setImage:[UIImage imageNamed:@"silhouette.png"]];
+    [newView addSubview:playerOneImageView];
+    
+    [playerTwoImageView setImage:[UIImage imageNamed:@"silhouette.png"]];
+    [newView addSubview:playerTwoImageView];
+    
+    [playerOneNameLabel setText:@"Player 1"];
+    [playerTwoNameLabel setText:@"Player 2"];
+    
+    playerOneImage = nil;
+    playerOneName = @"";
+    playerTwoImage = nil;
+    playerTwoName = @"";
     
     if (_matchmakingServer == nil)
     {
@@ -189,6 +263,8 @@ int LEFT_PLAYER_TAG = 6221, RIGHT_PLAYER_TAG = 6223;
     gameOverNaturally = NO;
     
     isSinglePlayerGame = NO;
+    
+    clientDisconnected = NO;
 }
 
 bool isSinglePlayerGame = NO;
@@ -323,6 +399,7 @@ int LAST_PLAYER_TOUCH_SERVER = NO_PLAYER_SERVER;
     }
     LAST_PLAYER_TOUCH_SERVER = LEFT_PLAYER_SERVER;
 }
+
 -(void)higherRightShotsOnGoal{
     
     if(LAST_PLAYER_TOUCH_SERVER == LEFT_PLAYER_SERVER)
@@ -331,6 +408,7 @@ int LAST_PLAYER_TOUCH_SERVER = NO_PLAYER_SERVER;
     }
     LAST_PLAYER_TOUCH_SERVER = RIGHT_PLAYER_SERVER;
 }
+
 -(void)gameOver{
     gameOverNaturally = YES;
     if(gameHasStarted)
@@ -397,7 +475,10 @@ int LAST_PLAYER_TOUCH_SERVER = NO_PLAYER_SERVER;
     
     contactListener = NULL;
     
-    [self setUpWaitScreen];
+    if(clientDisconnected)
+        [self setUpWaitScreen:YES];
+    else
+        [self setUpWaitScreen:NO];
 }
 
 -(void) update: (ccTime) dt
