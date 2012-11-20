@@ -28,7 +28,8 @@
         backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background7.jpg"]];
         [newImageView addSubview:backgroundImageView];
         
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(76, 115, 397, 532)];
+        // 116, 113
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(116, 113, 316, 539)];
         
         submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [submitButton setFrame:CGRectMake(735, 600, 289, 67)]; // was 440
