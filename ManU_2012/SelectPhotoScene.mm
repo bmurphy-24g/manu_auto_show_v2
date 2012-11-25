@@ -26,14 +26,14 @@
         
         // 584x511 584x585
         takePhotoButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [takePhotoButton setFrame:CGRectMake(584, 511, 440, 67)];
+        [takePhotoButton setFrame:CGRectMake(584, 585, 440, 135)];
         [takePhotoButton setBackgroundImage:[UIImage imageNamed:@"takeyourphoto_btn.png"] forState:UIControlStateNormal];
         [takePhotoButton addTarget:self action:@selector(takePhotoPressedAction:) forControlEvents:UIControlEventTouchUpInside];
         
         [newView addSubview:takePhotoButton];
         
         continueWithoutPhotoButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [continueWithoutPhotoButton setFrame:CGRectMake(584, 585, 440, 135)];
+        [continueWithoutPhotoButton setFrame:CGRectMake(584, 511, 440, 67)];
         [continueWithoutPhotoButton setBackgroundImage:[UIImage imageNamed:@"continuewithoutphoto_btn.png"] forState:UIControlStateNormal];
         [continueWithoutPhotoButton addTarget:self action:@selector(continueWithoutPhotoPressedAction:) forControlEvents:UIControlEventTouchUpInside];
         [newView addSubview:continueWithoutPhotoButton];
