@@ -77,7 +77,7 @@
         [shareWebView setAlpha:0.0f];
         [newView addSubview:shareWebView];
         
-        backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 187, 67)];
+        backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 187, 67)];
         [backButton setBackgroundImage:[UIImage imageNamed:@"back_btn.png"] forState:UIControlStateNormal];
         [backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [newView addSubview:backButton];
