@@ -64,6 +64,8 @@
         numberTextField = [[UITextField alloc] initWithFrame:CGRectMake(822, 480, 100, 35)];
         [numberTextField setBackgroundColor:[UIColor whiteColor]];
         [numberTextField setBorderStyle:UITextBorderStyleBezel];
+        [numberTextField setKeyboardType:UIKeyboardTypeNumberPad];
+        //numberTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
         numberTextField.text = @"";
         numberTextField.delegate = self;
         [newImageView addSubview:numberTextField];
@@ -130,7 +132,7 @@
     NSLog(@"%@", self.fileName);
     [newImageView removeFromSuperview];
     //NSString *stringWithoutSpaces = [myString stringByReplacingOccurrencesOfString:@" " withString:@""];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[InitialShareScene scene:self.currentImage :self.fileName :[firstNameTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""] :[lastNameTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""] :[numberTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""] :positionTextField.text] withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[InitialShareScene scene:self.currentImage :self.fileName :[firstNameTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""] :@"" :[numberTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""] :positionTextField.text] withColor:ccWHITE]];
 }
 
 -(void) initVariables: (UIImage*)image: (NSString*)file
