@@ -136,7 +136,9 @@
 -(void) initVariables: (UIImage*)image: (NSString*)file
 {
     self.currentImage = image;
-    imageView.image = self.currentImage;
+    UIImage* playerOverlay = [UIImage imageNamed:@"playercard_overlay.png"];
+    
+    imageView.image = [[self addImageToImage:self.currentImage :playerOverlay] copy];
     [newImageView addSubview:imageView];
     self.fileName = [NSString stringWithString:file];
 }
@@ -221,5 +223,22 @@ numberOfRowsInComponent:(NSInteger)component
     [super dealloc];
 }
 
+- (UIImage*) addImageToImage:(UIImage*)img:(UIImage*)img3{
+    CGSize size = CGSizeMake(img3.size.width, img3.size.height);
+    UIGraphicsBeginImageContext(size);
+    
+    NSLog(@"w: %f h: %f", img.size.width, img.size.height);
+    
+    //CGPoint pointImg1 = CGPointMake(0,0);
+    //[img drawAtPoint:pointImg1 ];
+    [img drawInRect:CGRectMake(0, 0, 316, 423)];
+    
+    [img3 drawInRect:CGRectMake(0, 0, 316, 539)];
+    
+    UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return result;
+}
 
 @end
