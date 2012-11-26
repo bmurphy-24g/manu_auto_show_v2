@@ -18,6 +18,7 @@
 		<string>Icon-Small-50.png</string>
 		<string>Icon-Small.png</string>
 		<string>Icon-Small@2x.png</string>
+		<string>icon_144x144.png</string>
 	</array>
 	<key>CFBundleIcons</key>
 	<dict>
@@ -31,13 +32,14 @@
 				<string>Icon-Small-50.png</string>
 				<string>Icon-Small.png</string>
 				<string>Icon-Small@2x.png</string>
+				<string>icon_144x144.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
 			<true/>
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>com.twentyfourg.manu</string>
+	<string>com.twentyfourg.manudist</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

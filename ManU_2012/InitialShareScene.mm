@@ -106,7 +106,7 @@
         [reloadButton setAlpha:1.0];
         [newView addSubview:reloadButton];
         
-        testImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+        //testImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
         //[testImageView setBackgroundColor:[UIColor whiteColor]];
         //[newView addSubview:testImageView];
         NSLog(@"Checking internet connectivity");

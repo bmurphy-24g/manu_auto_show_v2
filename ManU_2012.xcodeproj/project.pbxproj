@@ -26,7 +26,6 @@
 		C7312B6A164C6229002D9DC2 /* background2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C7312B64164C6227002D9DC2 /* background2.jpg */; };
 		C7312B6B164C6229002D9DC2 /* background3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C7312B65164C6227002D9DC2 /* background3.jpg */; };
 		C7312B6C164C6229002D9DC2 /* background4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C7312B66164C6227002D9DC2 /* background4.jpg */; };
-		C7312B6D164C6229002D9DC2 /* background5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C7312B67164C6228002D9DC2 /* background5.jpg */; };
 		C7312B6E164C6229002D9DC2 /* background6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C7312B68164C6229002D9DC2 /* background6.jpg */; };
 		C7312B6F164C6229002D9DC2 /* background7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C7312B69164C6229002D9DC2 /* background7.jpg */; };
 		C7312B73164C6237002D9DC2 /* begingame_background1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C7312B70164C6237002D9DC2 /* begingame_background1.jpg */; };
@@ -241,10 +240,13 @@
 		C79EDF0116480A6200A36FD8 /* continue_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = C79EDF0016480A6200A36FD8 /* continue_btn.png */; };
 		C79EDF031648150600A36FD8 /* accept_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = C79EDF021648150600A36FD8 /* accept_btn.png */; };
 		C79EDF09164816A700A36FD8 /* SelectPhotoScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = C79EDF08164816A700A36FD8 /* SelectPhotoScene.mm */; };
-		C79EDF0C164818A300A36FD8 /* continuewithoutphoto_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = C79EDF0A164818A200A36FD8 /* continuewithoutphoto_btn.png */; };
-		C79EDF0D164818A300A36FD8 /* takeyourphoto_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = C79EDF0B164818A200A36FD8 /* takeyourphoto_btn.png */; };
 		C79EDF1A1648250E00A36FD8 /* TakePhotoScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = C79EDF191648250D00A36FD8 /* TakePhotoScene.mm */; };
 		C79EDF2A1648288800A36FD8 /* TakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C79EDF291648288800A36FD8 /* TakePhotoViewController.m */; };
+		C7A034831662E21F00CA833A /* background5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C7A034821662E21F00CA833A /* background5.jpg */; };
+		C7A034861662E64900CA833A /* continuewithoutphoto_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = C7A034841662E64900CA833A /* continuewithoutphoto_btn.png */; };
+		C7A034871662E64900CA833A /* takeyourphoto_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = C7A034851662E64900CA833A /* takeyourphoto_btn.png */; };
+		C7A03495166354E100CA833A /* icon_144x144.png in Resources */ = {isa = PBXBuildFile; fileRef = C7A03494166354E100CA833A /* icon_144x144.png */; };
+		C7A1081516603DD6008403A7 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7A1081416603DD6008403A7 /* Entitlements.plist */; };
 		C7A1647D164AB7F90077E322 /* PrepareClientGame.mm in Sources */ = {isa = PBXBuildFile; fileRef = C7A1647C164AB7F90077E322 /* PrepareClientGame.mm */; };
 		C7A16481164AB8650077E322 /* ChooseServerOrClientScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = C7A16480164AB8650077E322 /* ChooseServerOrClientScene.mm */; };
 		C7A16484164ABB880077E322 /* startclient_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = C7A16482164ABB870077E322 /* startclient_btn.png */; };
@@ -286,7 +288,6 @@
 		C7312B64164C6227002D9DC2 /* background2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background2.jpg; sourceTree = "<group>"; };
 		C7312B65164C6227002D9DC2 /* background3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background3.jpg; sourceTree = "<group>"; };
 		C7312B66164C6227002D9DC2 /* background4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background4.jpg; sourceTree = "<group>"; };
-		C7312B67164C6228002D9DC2 /* background5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background5.jpg; sourceTree = "<group>"; };
 		C7312B68164C6229002D9DC2 /* background6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background6.jpg; sourceTree = "<group>"; };
 		C7312B69164C6229002D9DC2 /* background7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background7.jpg; sourceTree = "<group>"; };
 		C7312B70164C6237002D9DC2 /* begingame_background1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = begingame_background1.jpg; sourceTree = "<group>"; };
@@ -702,12 +703,15 @@
 		C79EDF021648150600A36FD8 /* accept_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = accept_btn.png; sourceTree = "<group>"; };
 		C79EDF07164816A700A36FD8 /* SelectPhotoScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPhotoScene.h; sourceTree = "<group>"; };
 		C79EDF08164816A700A36FD8 /* SelectPhotoScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SelectPhotoScene.mm; sourceTree = "<group>"; };
-		C79EDF0A164818A200A36FD8 /* continuewithoutphoto_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = continuewithoutphoto_btn.png; sourceTree = "<group>"; };
-		C79EDF0B164818A200A36FD8 /* takeyourphoto_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = takeyourphoto_btn.png; sourceTree = "<group>"; };
 		C79EDF181648250D00A36FD8 /* TakePhotoScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakePhotoScene.h; sourceTree = "<group>"; };
 		C79EDF191648250D00A36FD8 /* TakePhotoScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TakePhotoScene.mm; sourceTree = "<group>"; };
 		C79EDF281648288800A36FD8 /* TakePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakePhotoViewController.h; sourceTree = "<group>"; };
 		C79EDF291648288800A36FD8 /* TakePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakePhotoViewController.m; sourceTree = "<group>"; };
+		C7A034821662E21F00CA833A /* background5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background5.jpg; sourceTree = "<group>"; };
+		C7A034841662E64900CA833A /* continuewithoutphoto_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = continuewithoutphoto_btn.png; sourceTree = "<group>"; };
+		C7A034851662E64900CA833A /* takeyourphoto_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = takeyourphoto_btn.png; sourceTree = "<group>"; };
+		C7A03494166354E100CA833A /* icon_144x144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_144x144.png; sourceTree = "<group>"; };
+		C7A1081416603DD6008403A7 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		C7A1647B164AB7F90077E322 /* PrepareClientGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrepareClientGame.h; sourceTree = "<group>"; };
 		C7A1647C164AB7F90077E322 /* PrepareClientGame.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PrepareClientGame.mm; sourceTree = "<group>"; };
 		C7A1647F164AB8650077E322 /* ChooseServerOrClientScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseServerOrClientScene.h; sourceTree = "<group>"; };
@@ -779,6 +783,7 @@
 		C76BDE70162755B50051C3B3 = {
 			isa = PBXGroup;
 			children = (
+				C7A03494166354E100CA833A /* icon_144x144.png */,
 				C7312B7C164C8527002D9DC2 /* SystemConfiguration.framework */,
 				C739AF8416482B5000334D8E /* MobileCoreServices.framework */,
 				C76925E616441F1B004A35AA /* Default-Landscape~ipad.png */,
@@ -830,6 +835,7 @@
 				C76BE098162755B90051C3B3 /* Supporting Files */,
 				C79E30DC163B218D0074CBEC /* ContactListener.h */,
 				C79E30DD163B218D0074CBEC /* ContactListener.mm */,
+				C7A1081416603DD6008403A7 /* Entitlements.plist */,
 			);
 			path = ManU_2012;
 			sourceTree = "<group>";
@@ -850,16 +856,17 @@
 				C7312B64164C6227002D9DC2 /* background2.jpg */,
 				C7312B65164C6227002D9DC2 /* background3.jpg */,
 				C7312B66164C6227002D9DC2 /* background4.jpg */,
-				C7312B67164C6228002D9DC2 /* background5.jpg */,
+				C7A034821662E21F00CA833A /* background5.jpg */,
 				C7312B68164C6229002D9DC2 /* background6.jpg */,
 				C7312B69164C6229002D9DC2 /* background7.jpg */,
 				C7A16492164AF9340077E322 /* 1player_btn.png */,
 				C79EDF021648150600A36FD8 /* accept_btn.png */,
 				C79E31771649B544000DAB83 /* back_btn.png */,
 				C76BE0AB162755B90051C3B3 /* blocks.png */,
+				C7A034841662E64900CA833A /* continuewithoutphoto_btn.png */,
+				C7A034851662E64900CA833A /* takeyourphoto_btn.png */,
 				C7312B58164C363C002D9DC2 /* camera_btn.png */,
 				C79EDF0016480A6200A36FD8 /* continue_btn.png */,
-				C79EDF0A164818A200A36FD8 /* continuewithoutphoto_btn.png */,
 				C764027016488A2300445C48 /* decline_btn.png */,
 				C76BDE93162755B60051C3B3 /* Default.png */,
 				C79E3172164993C9000DAB83 /* dropdownarrow.jpg */,
@@ -886,7 +893,6 @@
 				C7A16483164ABB870077E322 /* startserver_btn.png */,
 				C7A16490164AF8FB0077E322 /* statgame_btn.png */,
 				C79E317016497F00000DAB83 /* submit_btn.png */,
-				C79EDF0B164818A200A36FD8 /* takeyourphoto_btn.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1552,8 +1558,6 @@
 				C76925E716441F1B004A35AA /* Default-Landscape~ipad.png in Resources */,
 				C79EDF0116480A6200A36FD8 /* continue_btn.png in Resources */,
 				C79EDF031648150600A36FD8 /* accept_btn.png in Resources */,
-				C79EDF0C164818A300A36FD8 /* continuewithoutphoto_btn.png in Resources */,
-				C79EDF0D164818A300A36FD8 /* takeyourphoto_btn.png in Resources */,
 				C764027116488A2300445C48 /* decline_btn.png in Resources */,
 				C79E317116497F00000DAB83 /* submit_btn.png in Resources */,
 				C79E3173164993C9000DAB83 /* dropdownarrow.jpg in Resources */,
@@ -1574,7 +1578,6 @@
 				C7312B6A164C6229002D9DC2 /* background2.jpg in Resources */,
 				C7312B6B164C6229002D9DC2 /* background3.jpg in Resources */,
 				C7312B6C164C6229002D9DC2 /* background4.jpg in Resources */,
-				C7312B6D164C6229002D9DC2 /* background5.jpg in Resources */,
 				C7312B6E164C6229002D9DC2 /* background6.jpg in Resources */,
 				C7312B6F164C6229002D9DC2 /* background7.jpg in Resources */,
 				C7312B73164C6237002D9DC2 /* begingame_background1.jpg in Resources */,
@@ -1589,6 +1592,11 @@
 				C7DDB39F165B30B100CBD743 /* results.jpg in Resources */,
 				C7DDB3A2165B350400CBD743 /* playercard_overlay.png in Resources */,
 				C7DDB3A4165B384700CBD743 /* camera_overlay.png in Resources */,
+				C7A1081516603DD6008403A7 /* Entitlements.plist in Resources */,
+				C7A034831662E21F00CA833A /* background5.jpg in Resources */,
+				C7A034861662E64900CA833A /* continuewithoutphoto_btn.png in Resources */,
+				C7A034871662E64900CA833A /* takeyourphoto_btn.png in Resources */,
+				C7A03495166354E100CA833A /* icon_144x144.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1867,6 +1875,48 @@
 			};
 			name = Release;
 		};
+		C7A1081116602B40008403A7 /* InHouse */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MOONLIGHT DIGITAL COMMUNICATIONS LLC";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NDEBUG,
+					"NS_BLOCK_ASSERTIONS=1",
+				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "68F2A0EB-37BF-4797-A7D5-6004F24F1E3E";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = InHouse;
+		};
+		C7A1081216602B40008403A7 /* InHouse */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ManU_2012/Prefix.pch;
+				HEADER_SEARCH_PATHS = "\"ManU_2012/libs/kazmath/include\"";
+				INFOPLIST_FILE = ManU_2012/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = (
+					"-lz",
+					"-ObjC",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"ManU_2012/libs\"";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = InHouse;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1875,6 +1925,7 @@
 			buildConfigurations = (
 				C76BE0AD162755B90051C3B3 /* Debug */,
 				C76BE0AE162755B90051C3B3 /* Release */,
+				C7A1081116602B40008403A7 /* InHouse */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1884,6 +1935,7 @@
 			buildConfigurations = (
 				C76BE0B0162755B90051C3B3 /* Debug */,
 				C76BE0B1162755B90051C3B3 /* Release */,
+				C7A1081216602B40008403A7 /* InHouse */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
