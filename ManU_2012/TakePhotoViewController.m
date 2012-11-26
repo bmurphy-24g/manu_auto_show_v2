@@ -175,6 +175,10 @@
     [object release];
     object = nil;
     
+    [imageView removeFromSuperview];
+    [acceptButton removeFromSuperview];
+    [declineButton removeFromSuperview];
+    
     //Start next scene
     //EnterYourInformationScene* enterYourInformation = [EnterYourInformationScene alloc];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[EnterYourInformationScene scene:currentImage :newFileName] withColor:ccWHITE]];
@@ -254,7 +258,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 
         imageView.image = finalImage;
         //imageView.transform = CGAffineTransformMakeRotation(RADIANS(270));
-        currentImage = finalImage;
+        currentImage = [[self addImageToImage:image :overlay] copy];
         
     }
     else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie])
@@ -265,6 +269,26 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [acceptButton setEnabled:YES];
     [declineButton setEnabled:YES];
     [exitButton setEnabled:YES];
+}
+
+- (UIImage*) addImageToImage:(UIImage*)img:(UIImage*)img2{
+    CGSize size = CGSizeMake(img.size.width, img.size.height);
+    UIGraphicsBeginImageContext(size);
+    
+    NSLog(@"w: %f h: %f", img.size.width, img.size.height);
+    
+    //CGPoint pointImg1 = CGPointMake(0,0);
+    //[img drawAtPoint:pointImg1 ];
+    [img drawInRect:CGRectMake(0, 0, img.size.width, img.size.height)];
+    
+    //CGPoint pointImage2 = CGPointMake(0, 0);
+    [img2 drawInRect:CGRectMake(0, 0, img.size.width, img.size.height)];
+    
+    
+    UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return result;
 }
 
 - (UIImage*) addImageToImage:(UIImage*)img:(UIImage*)img2:(UIImage*)img3{
