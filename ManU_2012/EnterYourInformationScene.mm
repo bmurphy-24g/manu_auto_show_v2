@@ -101,10 +101,22 @@
         [dropDownButton addTarget:self action:@selector(dropDownButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [newImageView addSubview:dropDownButton];
         
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                              action:@selector(dismissKeyboard)];
+        
+        [newImageView addGestureRecognizer:tap];
+        
         [newImageView addSubview:positionPickerView];
 	}
 	return self;
 }
+
+-(void)dismissKeyboard {
+    [firstNameTextField resignFirstResponder];
+    [lastNameTextField resignFirstResponder];
+    [numberTextField resignFirstResponder];
+}
+
 
 -(IBAction)backButtonPressed:(id)sender
 {
