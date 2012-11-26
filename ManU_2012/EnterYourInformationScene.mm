@@ -12,6 +12,7 @@
 @implementation EnterYourInformationScene
 @synthesize fileName, currentImage;
 
+bool keyboardShiftedUp = NO;
 -(id) init
 {
     NSLog(@"EnterYourInfo init");
@@ -105,8 +106,14 @@
                                                                               action:@selector(dismissKeyboard)];
         
         [newImageView addGestureRecognizer:tap];
+        [tap release];
         
         [newImageView addSubview:positionPickerView];
+        
+        keyboardShiftedUp = NO;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShiftBackgroundUp) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShiftBackgroundDown) name:UIKeyboardWillHideNotification object:nil];
 	}
 	return self;
 }
@@ -178,11 +185,7 @@
 - (void)textFieldDidBeginEditing:(UITextView *)textView{
     NSLog(@"did begin editing");
     
-    [UIView beginAnimations:@"MoveView" context:nil];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-    [UIView setAnimationDuration:0.25f];
-    newImageView.frame = CGRectMake(0, -200, 1024, 768);
-    [UIView commitAnimations];
+    
     
     //[newImageView setBounds:CGRectMake(0, 200, 1024, 768)];
 }
@@ -190,11 +193,7 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     NSLog(@"did finish editing");
     
-    [UIView beginAnimations:@"MoveView" context:nil];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-    [UIView setAnimationDuration:0.25f];
-    newImageView.frame = CGRectMake(0, 0, 1024, 768);
-    [UIView commitAnimations];
+    
     
     //[newImageView setBounds:CGRectMake(0, 0, 1024, 768)];
 }
@@ -234,6 +233,7 @@ numberOfRowsInComponent:(NSInteger)component
 -(void)dealloc
 {
     positionPickerView.delegate = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 
@@ -253,6 +253,32 @@ numberOfRowsInComponent:(NSInteger)component
     UIGraphicsEndImageContext();
     
     return result;
+}
+
+-(void) keyBoardShiftBackgroundUp
+{
+    if(!keyboardShiftedUp)
+    {
+        [UIView beginAnimations:@"MoveView" context:nil];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+        [UIView setAnimationDuration:0.25f];
+        newImageView.frame = CGRectMake(0, -200, 1024, 768);
+        [UIView commitAnimations];
+    }
+    keyboardShiftedUp = YES;
+}
+
+-(void) keyBoardShiftBackgroundDown
+{
+    if(keyboardShiftedUp)
+    {
+        [UIView beginAnimations:@"MoveView" context:nil];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+        [UIView setAnimationDuration:0.25f];
+        newImageView.frame = CGRectMake(0, 0, 1024, 768);
+        [UIView commitAnimations];
+    }
+    keyboardShiftedUp = NO;
 }
 
 @end
