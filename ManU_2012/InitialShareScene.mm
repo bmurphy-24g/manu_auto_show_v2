@@ -8,6 +8,7 @@
 
 #import "InitialShareScene.h"
 #import "StartScene.h"
+#import "NoInternetShareScene.h"
 
 @implementation InitialShareScene
 @synthesize fileName, firstName, lastName, number, position, currentImage, currentURL;
@@ -41,18 +42,28 @@
     self.number = num;
     self.position = pos;
     //NSString *urlAddress = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/index.php?filename=%@&first=%@&last=%@&position=%@&number=%@&goals=5&shots=22", fileName, firstName, lastName, position, number];
-    NSString *urlAddress = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/index.php?filename=%@&first=%@&last=%@&position=%@&number=%@&hide_right=true", fileName, firstName, lastName, position, number];
-    self.currentURL = urlAddress;
-    NSLog(@"%@", urlAddress);
-    NSURL *url = [NSURL URLWithString:urlAddress];
-    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-    
-    [shareWebView loadRequest:requestObj];
+    if(isConnectedToInternet)
+    {
+        NSString *urlAddress = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/index.php?filename=%@&first=%@&last=%@&position=%@&number=%@&hide_right=true", fileName, firstName, lastName, position, number];
+        self.currentURL = urlAddress;
+        NSLog(@"%@", urlAddress);
+        NSURL *url = [NSURL URLWithString:urlAddress];
+        NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+        
+        [shareWebView loadRequest:requestObj];
+    }
+    else
+    {
+        [playButton setAlpha:1.0f];
+        [shareButton setAlpha:1.0f];
+    }
 }
 
+bool isConnectedToInternet = YES;
 -(id) init
 {
 	if( (self=[super init])) {
+        isConnectedToInternet = YES;
         
         winSize = [CCDirector sharedDirector].winSize;
 		bg = [CCSprite spriteWithFile:@"blank.jpg"];
@@ -112,9 +123,10 @@
         NSLog(@"Checking internet connectivity");
         if(![self connectedToInternet])
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No internet connection." message:@"Joining game." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
-            [alert show];
-            [alert release];
+            //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No internet connection." message:@"Joining game." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+            //[alert show];
+            //[alert release];
+            isConnectedToInternet = NO;
             
             NSLog(@"Not connected to internet");
             
@@ -167,21 +179,23 @@
 -(IBAction)shareButtonPressed:(id)sender
 {
     NSLog(@"share button pressed");
-    //shareWebView.delegate = nil;
-    //[shareButton setAlpha:0.0f];
-    //[playButton setAlpha:0.0f];
-    [shareButton removeFromSuperview];
-    [playButton removeFromSuperview];
-    //[reloadButton setAlpha:1.0f];
-    [exitButton setAlpha:1.0f];
-    NSString *urlAddress = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/index.php?filename=%@&first=%@&last=%@&position=%@&number=%@", self.fileName, self.firstName, self.lastName, self.position, self.number];
-    self.currentURL = urlAddress;
-    NSURL *url = [NSURL URLWithString:urlAddress];
-    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-    [shareWebView loadRequest:requestObj];
-    //[urlAddress release];
-    //[url release];
-    //[requestObj release];
+    if(isConnectedToInternet)
+    {
+        [shareButton removeFromSuperview];
+        [playButton removeFromSuperview];
+        [exitButton setAlpha:1.0f];
+        NSString *urlAddress = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/index.php?filename=%@&first=%@&last=%@&position=%@&number=%@", self.fileName, self.firstName, self.lastName, self.position, self.number];
+        self.currentURL = urlAddress;
+        NSURL *url = [NSURL URLWithString:urlAddress];
+        NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+        [shareWebView loadRequest:requestObj];
+    }
+    else
+    {
+        // noInternetShare
+        [newView removeFromSuperview];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[NoInternetShareScene scene:self.fileName :self.firstName :self.lastName :self.number :self.position :@"" :@"" :self.currentImage] withColor:ccWHITE]];
+    }
 }
 
 -(IBAction)playButtonPressed:(id)sender

@@ -146,7 +146,13 @@ bool clientDisconnected = NO;
     NSLog(@"Finished talking to kevin");
     [request release];
     request = NULL;
-    bg = [CCSprite spriteWithFile:@"results.jpg"];
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]
+        && [[UIScreen mainScreen] scale] == 2.0) {
+        bg = [CCSprite spriteWithFile:@"results_retina.jpg"];
+    } else {
+        bg = [CCSprite spriteWithFile:@"results.jpg"];
+    }
+    
     bg.position = ccp(winSize.width/2, winSize.height/2);
     [self addChild:bg z:0 tag:421];
     
@@ -226,7 +232,12 @@ bool clientDisconnected = NO;
     [scoreScreenPlayerTwoShots removeFromSuperview];
     
     [self removeChildByTag:421 cleanup:NO];
-    bg = [CCSprite spriteWithFile:@"begingame_background1.jpg"];
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]
+        && [[UIScreen mainScreen] scale] == 2.0) {
+        bg = [CCSprite spriteWithFile:@"begingame_background1_retina.jpg"];
+    } else {
+        bg = [CCSprite spriteWithFile:@"begingame_background1.jpg"];
+    }
     bg.position = ccp(winSize.width/2, winSize.height/2);
     [self addChild:bg z:0 tag:420];
     [playerOneImageView setImage:[UIImage imageNamed:@"silhouette.png"]];
@@ -300,7 +311,12 @@ bool isSinglePlayerGame = NO;
     CGSize s = [CCDirector sharedDirector].winSize;
     winSize = s;
     
-    bg = [CCSprite spriteWithFile:@"field.jpg"];
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]
+        && [[UIScreen mainScreen] scale] == 2.0) {
+        bg = [CCSprite spriteWithFile:@"field_retina.jpg"];
+    } else {
+        bg = [CCSprite spriteWithFile:@"field.jpg"];
+    }
     bg.position = ccp(s.width/2, s.height/2);
     [self addChild:bg z:0 tag:666];
     
@@ -608,7 +624,12 @@ bool receivedStartGame = NO;
             NSLog(@"Finished decoding");
             if(!receivedPlayerOneImage)
             {
-                bg = [CCSprite spriteWithFile:@"begingame_background2.jpg"];
+                if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]
+                    && [[UIScreen mainScreen] scale] == 2.0) {
+                    bg = [CCSprite spriteWithFile:@"begingame_background2_retina.jpg"];
+                } else {
+                    bg = [CCSprite spriteWithFile:@"begingame_background2.jpg"];
+                }
                 bg.position = ccp(winSize.width/2, winSize.height/2);
                 [self addChild:bg z:0];
                 [newView removeFromSuperview];
@@ -663,7 +684,13 @@ bool receivedStartGame = NO;
             NSData* decodedData = [unarchiver decodeDataObject];
             if(!receivedPlayerTwoImage)
             {
-                bg = [CCSprite spriteWithFile:@"begingame_background3.jpg"];
+                if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]
+                    && [[UIScreen mainScreen] scale] == 2.0) {
+                    bg = [CCSprite spriteWithFile:@"begingame_background3_retina.jpg"];
+                } else {
+                    bg = [CCSprite spriteWithFile:@"begingame_background3.jpg"];
+                }
+                
                 bg.position = ccp(winSize.width/2, winSize.height/2);
                 [self addChild:bg z:0];
                 [newView removeFromSuperview];
@@ -922,7 +949,13 @@ int L_SCORE_LABEL = 44444, R_SCORE_LABEL = 44445, L_SHOTS_LABEL = 44446, R_SHOTS
     
     CGPoint p1 = ccp(100, 368);
     
-    self.SpriteLeft = [PhysicsSprite spriteWithFile:@"player1.png"];
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]
+        && [[UIScreen mainScreen] scale] == 2.0) {
+        self.SpriteLeft = [PhysicsSprite spriteWithFile:@"player_left_retina.png"];
+    } else {
+        self.SpriteLeft = [PhysicsSprite spriteWithFile:@"player1.png"];
+    }
+    
     //[self addChild:SpriteLeft z:0];
     self.SpriteLeft.position = ccp(p1.x, p1.y);
     
@@ -966,7 +999,13 @@ int L_SCORE_LABEL = 44444, R_SCORE_LABEL = 44445, L_SHOTS_LABEL = 44446, R_SHOTS
     
     CGPoint p2 = ccp(924, 368);
     
-    self.SpriteRight = [PhysicsSprite spriteWithFile:@"player2.png"];
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]
+        && [[UIScreen mainScreen] scale] == 2.0) {
+        self.SpriteRight = [PhysicsSprite spriteWithFile:@"player_right_retina.png"];
+    } else {
+        self.SpriteRight = [PhysicsSprite spriteWithFile:@"player2.png"];
+    }
+    
     //[self addChild:SpriteRight z:0];
     self.SpriteRight.position = ccp(p2.x, p2.y);
     

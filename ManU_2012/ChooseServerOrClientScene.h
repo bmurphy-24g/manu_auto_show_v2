@@ -16,6 +16,7 @@
     UIButton* startServerButton;
     UIButton* startClientButton;
     UIView* newView;
+    UIImageView* backgroundImageView;
 }
 +(CCScene *) scene;
 @end

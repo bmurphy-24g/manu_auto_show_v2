@@ -25,11 +25,18 @@ int BALL_TAG = 98734;
         
         CGPoint b = ccp(512, 368);
          
-         Sprite = [PhysicsSprite spriteWithFile:@"ball.png"];
+         
+        if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]
+            && [[UIScreen mainScreen] scale] == 2.0) {
+            Sprite = [PhysicsSprite spriteWithFile:@"soccerball_retina.png"];
+        } else {
+            Sprite = [PhysicsSprite spriteWithFile:@"ball.png"];
+        }
         [Sprite retain];
          //[layer addChild:Sprite];
         //[layer addChild:Sprite z:0 tag:BALL_TAG];
          Sprite.position = ccp(b.x, b.y);
+        
          
          // Define the dynamic body.
          //Set up a 1m squared box in the physics world

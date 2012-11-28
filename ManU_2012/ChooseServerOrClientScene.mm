@@ -14,12 +14,17 @@
 {
 	if( (self=[super init])) {
         winSize = [CCDirector sharedDirector].winSize;
-		bg = [CCSprite spriteWithFile:@"blank.jpg"];
-        bg.position = ccp(winSize.width/2, winSize.height/2);
-        [self addChild:bg z:0];
+		//bg = [CCSprite spriteWithFile:@"blank.jpg"];
+        //bg.position = ccp(winSize.width/2, winSize.height/2);
+        //[self addChild:bg z:0];
         
         newView = [[UIView alloc] initWithFrame:[[CCDirector sharedDirector] view].frame];
+        
         [[[CCDirector sharedDirector] view] addSubview:newView];
+        
+        backgroundImageView = [[UIImageView alloc] initWithFrame:[[CCDirector sharedDirector] view].frame];
+        [backgroundImageView setImage:[UIImage imageNamed:@"blank.jpg"]];
+        [newView addSubview:backgroundImageView];
         
         startClientButton = [[UIButton alloc] initWithFrame:CGRectMake(553, 224, 471, 149)];
         [startClientButton setBackgroundImage:[UIImage imageNamed:@"startclient_btn.png"] forState:UIControlStateNormal];
@@ -39,16 +44,18 @@
     //UIButton *button = (UIButton *)sender;
     // Get the UITableViewCell which is the superview of the UITableViewCellContentView which is the superview of the UIButton
     NSLog(@"Server Pressed");
-    [startClientButton removeFromSuperview];
-    [startServerButton removeFromSuperview];
+    //[startClientButton removeFromSuperview];
+    //[startServerButton removeFromSuperview];
+    [newView removeFromSuperview];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[WaitingForPlayersScreen scene] withColor:ccWHITE]];
 }
 
 -(IBAction)startClientPressedAction:(id)sender
 {
     NSLog(@"Client Pressed");
-    [startClientButton removeFromSuperview];
-    [startServerButton removeFromSuperview];
+    //[startClientButton removeFromSuperview];
+    //[startServerButton removeFromSuperview];
+    [newView removeFromSuperview];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[StartScene scene] withColor:ccWHITE]];
 }
 
@@ -73,6 +80,8 @@
     [newView release];
     [startClientButton release];
     [startServerButton release];
+    [backgroundImageView release];
+    backgroundImageView = nil;
     [super dealloc];
 }
 

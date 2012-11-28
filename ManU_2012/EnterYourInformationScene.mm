@@ -81,7 +81,7 @@ bool keyboardShiftedUp = NO;
         
         // Set up the drop down menu
         positions = [[NSArray alloc] initWithObjects:
-                     @"Forward", @"Midfielder", @"Defender", @"Goalie", nil];
+                     @"Forward", @"Midfielder", @"Defender", @"Keeper", nil];
         
         positionPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(540, 515, 250, 20)];
         positionPickerView.showsSelectionIndicator = YES;
