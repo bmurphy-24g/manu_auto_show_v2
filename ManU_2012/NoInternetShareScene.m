@@ -88,6 +88,7 @@ bool emailButtonHasBeenPressed = NO, textButtonHasBeenPressed = NO, keyBoardShif
         [phoneNumberThreeTextField setBorderStyle:UITextBorderStyleBezel];
         [textShareView addSubview:phoneNumberThreeTextField];
         textTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 211, 472, 128)];
+        [textTextView setFont:[UIFont fontWithName:@"Arial" size:14]];
         textTextView.layer.borderWidth = 2.0;
         [[textTextView layer] setBorderColor:[[UIColor lightGrayColor] CGColor]];
         [textShareView addSubview:textTextView];
@@ -110,6 +111,7 @@ bool emailButtonHasBeenPressed = NO, textButtonHasBeenPressed = NO, keyBoardShif
         [emailThreeTextField setBorderStyle:UITextBorderStyleBezel];
         [emailShareView addSubview:emailThreeTextField];
         emailTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 211, 472, 128)];
+        [emailTextView setFont:[UIFont fontWithName:@"Arial" size:14]];
         emailTextView.layer.borderWidth = 2.0;
         [[emailTextView layer] setBorderColor:[[UIColor lightGrayColor] CGColor]];
         [emailShareView addSubview:emailTextView];
