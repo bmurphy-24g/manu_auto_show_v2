@@ -144,6 +144,15 @@ bool emailButtonHasBeenPressed = NO, textButtonHasBeenPressed = NO, keyBoardShif
         [exitButton setAlpha:1.0];
         [mainView addSubview:exitButton];
         
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                              action:@selector(dismissKeyboard)];
+        
+        [mainView addGestureRecognizer:tap];
+        [tap release];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShiftBackgroundUp) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShiftBackgroundDown) name:UIKeyboardWillHideNotification object:nil];
+        
         if (_managedObjectContext == nil)
         {
             _managedObjectContext = [(AppController *)[[UIApplication sharedApplication] delegate] managedObjectContext];
@@ -176,6 +185,43 @@ bool emailButtonHasBeenPressed = NO, textButtonHasBeenPressed = NO, keyBoardShif
         }
 	}
 	return self;
+}
+
+-(void)dismissKeyboard {
+    [phoneNumberOneTextField resignFirstResponder];
+    [phoneNumberTwoTextField resignFirstResponder];
+    [phoneNumberThreeTextField resignFirstResponder];
+    [textTextView resignFirstResponder];
+    [emailOneTextField resignFirstResponder];
+    [emailTwoTextField resignFirstResponder];
+    [emailThreeTextField resignFirstResponder];
+    [emailTextView resignFirstResponder];
+}
+
+-(void) keyBoardShiftBackgroundUp
+{
+    if(!keyBoardShiftedUp)
+    {
+        [UIView beginAnimations:@"MoveView" context:nil];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+        [UIView setAnimationDuration:0.25f];
+        mainView.frame = CGRectMake(0, -200, 1024, 768);
+        [UIView commitAnimations];
+    }
+    keyBoardShiftedUp = YES;
+}
+
+-(void) keyBoardShiftBackgroundDown
+{
+    if(keyBoardShiftedUp)
+    {
+        [UIView beginAnimations:@"MoveView" context:nil];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+        [UIView setAnimationDuration:0.25f];
+        mainView.frame = CGRectMake(0, 0, 1024, 768);
+        [UIView commitAnimations];
+    }
+    keyBoardShiftedUp = NO;
 }
 
 -(void)dealloc
@@ -255,6 +301,12 @@ bool emailButtonHasBeenPressed = NO, textButtonHasBeenPressed = NO, keyBoardShif
                                        insertNewObjectForEntityForName:@"NoInternetInfo"
                                        inManagedObjectContext:_managedObjectContext];
     [noInternetInfo setValue:method forKey:@"method"];
+    if(field1 == nil)
+        field1 = @"";
+    if(field2 == nil)
+        field2 = @"";
+    if(field3 == nil)
+        field3 = @"";
     [noInternetInfo setValue:field1 forKey:@"field1"];
     [noInternetInfo setValue:field2 forKey:@"field2"];
     [noInternetInfo setValue:field3 forKey:@"field3"];
