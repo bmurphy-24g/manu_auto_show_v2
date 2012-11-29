@@ -40,5 +40,6 @@
 @property (nonatomic, copy) NSString* playerFirstName;
 @property (nonatomic, copy) NSString* playerLastName;
 @property (nonatomic, copy) NSString* cloudFileName;
-+(CCScene *) scene :(UIImage*)img :(NSString*)name :(NSString*)position :(NSString*)number :(NSString*)firstName :(NSString*)lastName :(NSString*)fileName;
+@property (nonatomic, copy) UIImage* currentImage;
++(CCScene *) scene :(UIImage*)img :(NSString*)name :(NSString*)position :(NSString*)number :(NSString*)firstName :(NSString*)lastName :(NSString*)fileName :(UIImage*)img;
 @end

@@ -166,9 +166,18 @@
     object.content_type = @"image/jpg";
     object.data = UIImageJPEGRepresentation(currentImage, 100);
     
+    NSLog(@"UImage path= %@",currentImage);
+    NSData* imageData = UIImageJPEGRepresentation(currentImage, 100);// UIImageJPEGRepresentation(imageView.image);
+    NSString* imageName = [NSString stringWithFormat:@"%@.jpg", newFileName];
+    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString* documentsDirectory = [paths objectAtIndex:0];
+    NSString *fullPathToFile = [documentsDirectory stringByAppendingPathComponent:imageName];
+    [imageData writeToFile:fullPathToFile atomically:NO];
+    NSLog(@"Image path = %@",fullPathToFile);
     
     [container uploadObject:object success:^{
         NSLog(@"Apparently succeeded?");
+        NSLog(@"%@", object.name);
     } failure:^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
         NSLog(@"Create object failed.");
     }];
@@ -265,6 +274,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     {
 		// Code here to support video if enabled
 	}
+    
     //imagePicker.delegate = nil;
     [acceptButton setEnabled:YES];
     [declineButton setEnabled:YES];

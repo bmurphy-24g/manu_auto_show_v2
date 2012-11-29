@@ -29,6 +29,7 @@
     UIButton* exitButton;
     UIButton* reloadButton;
     NSString* currentURL;
+    bool isConnectedToInternet;
 }
 
 @property (nonatomic, copy) UIImage* currentImage;
@@ -40,6 +41,6 @@
 @property (nonatomic, copy) NSString* playerGoals;
 @property (nonatomic, copy) NSString* playerShots;
 @property (nonatomic, copy) NSString* currentURL;
-+(CCScene *) scene: (NSString*)cloudFileName: (NSString*)firstName: (NSString*)lastName: (NSString*)number: (NSString*)position :(NSString*)goals :(NSString*)shots;
++(CCScene *) scene: (NSString*)cloudFileName: (NSString*)firstName: (NSString*)lastName: (NSString*)number: (NSString*)position :(NSString*)goals :(NSString*)shots :(UIImage*)img;
 
 @end

@@ -76,16 +76,19 @@ bool emailButtonHasBeenPressed = NO, textButtonHasBeenPressed = NO, keyBoardShif
         [phoneNumberOneTextField setPlaceholder:@"Phone Number"];
         [phoneNumberOneTextField setBackgroundColor:[UIColor whiteColor]];
         [phoneNumberOneTextField setBorderStyle:UITextBorderStyleBezel];
+        [phoneNumberOneTextField setKeyboardType:UIKeyboardTypeNumberPad];
         [textShareView addSubview:phoneNumberOneTextField];
         phoneNumberTwoTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, 103, 472, 30)];
         [phoneNumberTwoTextField setPlaceholder:@"Phone Number"];
         [phoneNumberTwoTextField setBackgroundColor:[UIColor whiteColor]];
         [phoneNumberTwoTextField setBorderStyle:UITextBorderStyleBezel];
+        [phoneNumberTwoTextField setKeyboardType:UIKeyboardTypeNumberPad];
         [textShareView addSubview:phoneNumberTwoTextField];
         phoneNumberThreeTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, 158, 472, 30)];
         [phoneNumberThreeTextField setPlaceholder:@"Phone Number"];
         [phoneNumberThreeTextField setBackgroundColor:[UIColor whiteColor]];
         [phoneNumberThreeTextField setBorderStyle:UITextBorderStyleBezel];
+        [phoneNumberThreeTextField setKeyboardType:UIKeyboardTypeNumberPad];
         [textShareView addSubview:phoneNumberThreeTextField];
         textTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 211, 472, 128)];
         [textTextView setFont:[UIFont fontWithName:@"Arial" size:14]];
@@ -99,16 +102,19 @@ bool emailButtonHasBeenPressed = NO, textButtonHasBeenPressed = NO, keyBoardShif
         [emailOneTextField setPlaceholder:@"Email address"];
         [emailOneTextField setBackgroundColor:[UIColor whiteColor]];
         [emailOneTextField setBorderStyle:UITextBorderStyleBezel];
+        [emailOneTextField setKeyboardType:UIKeyboardTypeEmailAddress];
         [emailShareView addSubview:emailOneTextField];
         emailTwoTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, 103, 472, 30)];
         [emailTwoTextField setPlaceholder:@"Email address"];
         [emailTwoTextField setBackgroundColor:[UIColor whiteColor]];
         [emailTwoTextField setBorderStyle:UITextBorderStyleBezel];
+        [emailTwoTextField setKeyboardType:UIKeyboardTypeEmailAddress];
         [emailShareView addSubview:emailTwoTextField];
         emailThreeTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, 158, 472, 30)];
         [emailThreeTextField setPlaceholder:@"Email address"];
         [emailThreeTextField setBackgroundColor:[UIColor whiteColor]];
         [emailThreeTextField setBorderStyle:UITextBorderStyleBezel];
+        [emailThreeTextField setKeyboardType:UIKeyboardTypeEmailAddress];
         [emailShareView addSubview:emailThreeTextField];
         emailTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 211, 472, 128)];
         [emailTextView setFont:[UIFont fontWithName:@"Arial" size:14]];
@@ -234,6 +240,35 @@ bool emailButtonHasBeenPressed = NO, textButtonHasBeenPressed = NO, keyBoardShif
     backgroundImageView = nil;
     [currentImageView release];
     currentImageView = nil;
+    [phoneNumberOneTextField release];
+    phoneNumberOneTextField = nil;
+    [phoneNumberTwoTextField release];
+    phoneNumberTwoTextField = nil;
+    [phoneNumberThreeTextField release];
+    phoneNumberThreeTextField = nil;
+    [textTextView release];
+    textTextView = nil;
+    [emailOneTextField release];
+    emailOneTextField = nil;
+    [emailTwoTextField release];
+    emailTwoTextField = nil;
+    [emailThreeTextField release];
+    emailThreeTextField = nil;
+    [emailTextView release];
+    emailTextView = nil;
+    [textButton release];
+    textButton = nil;
+    [emailButton release];
+    emailButton = nil;
+    [sendEmailButton release];
+    sendEmailButton = nil;
+    [sendTextButton release];
+    sendTextButton = nil;
+    [exitButton release];
+    exitButton = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [super dealloc];
 }
 
@@ -290,11 +325,26 @@ bool emailButtonHasBeenPressed = NO, textButtonHasBeenPressed = NO, keyBoardShif
 -(IBAction)sendEmailButtonPressed:(id)sender
 {
     [self addAttributeToDatabase:@"email" :self.firstName :emailTextView.text :emailOneTextField.text :emailTwoTextField.text :emailThreeTextField.text :self.playerShots :self.playerGoals :self.position :self.number :self.fileName];
+    [emailOneTextField setText:@""];
+    [emailTwoTextField setText:@""];
+    [emailThreeTextField setText:@""];
+    [emailTextView setText:@""];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No internet detected." message:@"Your email will be sent later." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+    [alert show];
+    [alert release];
+    
 }
 
 -(IBAction)sendTextButtonPressed:(id)sender
 {
     [self addAttributeToDatabase:@"text" :self.firstName :textTextView.text :phoneNumberOneTextField.text :phoneNumberTwoTextField.text :phoneNumberThreeTextField.text :self.playerShots :self.playerGoals :self.position :self.number :self.fileName];
+    [phoneNumberOneTextField setText:@""];
+    [phoneNumberTwoTextField setText:@""];
+    [phoneNumberThreeTextField setText:@""];
+    [textTextView setText:@""];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No internet detected." message:@"Your text will be sent later." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+    [alert show];
+    [alert release];
 }
 
 -(void)addAttributeToDatabase:(NSString*)method :(NSString*)name :(NSString*)message :(NSString*)field1 :(NSString*)field2 :(NSString*)field3 :(NSString*)shots :(NSString*)goals :(NSString*)pos :(NSString*)num :(NSString*)file

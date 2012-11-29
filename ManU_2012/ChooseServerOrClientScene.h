@@ -9,14 +9,20 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "WaitingForPlayersScreen.h"
+#import "RSClient.h"
 
 @interface ChooseServerOrClientScene : CCLayer {
     CCSprite* bg;
     CGSize winSize;
     UIButton* startServerButton;
     UIButton* startClientButton;
+    UIButton* shareAssetsButton;
     UIView* newView;
     UIImageView* backgroundImageView;
+    RSClient* _rsClient;
+    RSContainer* container;
+    RSStorageObject* object;
 }
+@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 +(CCScene *) scene;
 @end

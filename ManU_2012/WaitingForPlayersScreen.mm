@@ -137,8 +137,10 @@ bool clientDisconnected = NO;
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setTimeoutInterval:5.0f];
     [request setURL:[NSURL URLWithString:urlString]];
-    [request setHTTPMethod:@"POST"];
+    [request setHTTPMethod:@"GET"];
     NSLog(@"Talking to Kevin");
+    //NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:nil];
+    //connection
     [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&error];
     if (error) {
         NSLog(@"Error");

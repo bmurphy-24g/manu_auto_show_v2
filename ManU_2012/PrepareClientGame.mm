@@ -322,16 +322,8 @@ bool receivedGameOver = NO, exitPressed = NO, receivedStartOnePlayer = NO, recei
         [newView removeFromSuperview];
         [_matchmakingClient disconnectFromServer];
         receivedGameOver = YES;
-        //+(CCScene *) scene: (NSString*)cloudFileName: (NSString*)firstName: (NSString*)lastName: (NSString*)number: (NSString*)position :(NSString*)goals :(NSString*)shots;
-        if([self connectedToInternet])
-        {
-            [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[FinalShareScene scene:self.cloudFileName :self.playerFirstName :self.playerLastName :self.playerNumber :self.playerPosition :score :shotsOnGoal] withColor:ccWHITE]];
-        }
-        else
-        {
-            [newView removeFromSuperview];
-            [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[StartScene scene] withColor:ccWHITE]];
-        }
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[FinalShareScene scene:self.cloudFileName :self.playerFirstName :self.playerLastName :self.playerNumber :self.playerPosition :score :shotsOnGoal :self.playerImage] withColor:ccWHITE]];
+        
     }
     [unarchiver release];
 }

@@ -17,28 +17,7 @@
 @synthesize window=window_, navController=navController_, director=director_, managedObjectContext = _managedObjectContext, managedObjectModel = _managedObjectModel, persistentStoreCoordinator = _persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    NSManagedObjectContext *context = [self managedObjectContext];
-    NSManagedObject *noInternetInfo = [NSEntityDescription
-                                       insertNewObjectForEntityForName:@"NoInternetInfo"
-                                       inManagedObjectContext:context];
-    [noInternetInfo setValue:@"email" forKey:@"method"];
-    [noInternetInfo setValue:@"smurph02@gmail.com" forKey:@"field1"];
-    [noInternetInfo setValue:@"test message" forKey:@"message"];
-    NSError *error;
-    if (![context save:&error]) {
-        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-    }
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"NoInternetInfo" inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    for (NSManagedObject *info in fetchedObjects) {
-        NSLog(@"Method: %@", [info valueForKey:@"method"]);
-    }
-    
+{   
 	// Create the main window
 	window_ = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	
