@@ -71,6 +71,7 @@ int numConnected = 0;
 	[_session disconnectFromAllPeers];
 	_session.available = NO;
 	_session.delegate = nil;
+    [_session release];
 	_session = nil;
     
 	self.connectedClients = nil;

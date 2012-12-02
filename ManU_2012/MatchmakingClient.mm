@@ -77,9 +77,7 @@ ClientState;
 	_clientState = ClientStateConnecting;
 	_serverPeerID = peerID;
     NSLog(@"Connecting...");
-    NSLog(peerID);
-    NSLog(@"FUCK");
-	[_session connectToPeer:peerID withTimeout:_session.disconnectTimeout];
+    [_session connectToPeer:peerID withTimeout:_session.disconnectTimeout];
 }
 
 - (void)disconnectFromServer
@@ -91,6 +89,7 @@ ClientState;
 	[_session disconnectFromAllPeers];
 	_session.available = NO;
 	_session.delegate = nil;
+    [_session release];
 	_session = nil;
     
 	_availableServers = nil;

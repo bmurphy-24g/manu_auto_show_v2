@@ -14,56 +14,17 @@
 #define PTM_RATIO 32
 int numTimesIncreased = 0;
 int BALL_TAG = 98734;
+bool ballExists = NO;
 
 -(id) spawn:(CCLayer *)layer :(b2World *)world :(b2Body *)groundBody {
     NSLog(@"SHOULD SPAWN");
     if ((self=[super init])) {
         NSLog(@"spawn");
-        
+        mainWorld = world;
         parentLayer = layer;
         _winSize = [CCDirector sharedDirector].winSize;
         
-        CGPoint b = ccp(512, 368);
-         
-         
-        if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]
-            && [[UIScreen mainScreen] scale] == 2.0) {
-            Sprite = [PhysicsSprite spriteWithFile:@"soccerball_retina.png"];
-        } else {
-            Sprite = [PhysicsSprite spriteWithFile:@"ball.png"];
-        }
-        [Sprite retain];
-         //[layer addChild:Sprite];
-        //[layer addChild:Sprite z:0 tag:BALL_TAG];
-         Sprite.position = ccp(b.x, b.y);
-        
-         
-         // Define the dynamic body.
-         //Set up a 1m squared box in the physics world
-         b2BodyDef bodyDefBall;
-         bodyDefBall.type = b2_dynamicBody;
-         bodyDefBall.position.Set(b.x/PTM_RATIO, b.y/PTM_RATIO);
-         bodyDefBall.fixedRotation = NO;
-         Body = world->CreateBody(&bodyDefBall);
-         
-         // Define another box shape for our dynamic body.
-         //b2PolygonShape dynamicBoxBall;
-         //dynamicBoxBall.SetAsBox(1.0f, 1.0f);//These are mid points for our 1m box
-         
-         b2CircleShape circleShapeBall;
-         circleShapeBall.m_radius = 0.5f;
-         
-         // Define the dynamic body fixture.
-         b2FixtureDef fixtureDefBall;
-         fixtureDefBall.shape = &circleShapeBall;
-         fixtureDefBall.density = 4.0f;
-         fixtureDefBall.friction = 0.0f;
-         fixtureDefBall.restitution = 1.0f;
-         Fixture = Body->CreateFixture(&fixtureDefBall);
-        
-        
-        
-         [Sprite setPhysicsBody:Body];
+        ballExists = NO;
         
         //[self addBall];
         
@@ -73,6 +34,47 @@ int BALL_TAG = 98734;
 }
 
 -(void)addBall {
+    CGPoint b = ccp(512, 368);
+    
+    
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]
+        && [[UIScreen mainScreen] scale] == 2.0) {
+        Sprite = [PhysicsSprite spriteWithFile:@"soccerball_retina.png"];
+    } else {
+        Sprite = [PhysicsSprite spriteWithFile:@"ball.png"];
+    }
+    [Sprite retain];
+    //[layer addChild:Sprite];
+    //[layer addChild:Sprite z:0 tag:BALL_TAG];
+    Sprite.position = ccp(b.x, b.y);
+    
+    
+    // Define the dynamic body.
+    //Set up a 1m squared box in the physics world
+    b2BodyDef bodyDefBall;
+    bodyDefBall.type = b2_dynamicBody;
+    bodyDefBall.position.Set(b.x/PTM_RATIO, b.y/PTM_RATIO);
+    bodyDefBall.fixedRotation = NO;
+    Body = mainWorld->CreateBody(&bodyDefBall);
+    
+    // Define another box shape for our dynamic body.
+    //b2PolygonShape dynamicBoxBall;
+    //dynamicBoxBall.SetAsBox(1.0f, 1.0f);//These are mid points for our 1m box
+    
+    b2CircleShape circleShapeBall;
+    circleShapeBall.m_radius = 0.5f;
+    
+    // Define the dynamic body fixture.
+    b2FixtureDef fixtureDefBall;
+    fixtureDefBall.shape = &circleShapeBall;
+    fixtureDefBall.density = 4.0f;
+    fixtureDefBall.friction = 0.0f;
+    fixtureDefBall.restitution = 1.0f;
+    Fixture = Body->CreateFixture(&fixtureDefBall);
+    
+    
+    
+    [Sprite setPhysicsBody:Body];
     numTimesIncreased = 1;
     newSpeed = 25;
     [parentLayer addChild:Sprite z:0 tag:BALL_TAG];
@@ -83,12 +85,31 @@ int BALL_TAG = 98734;
      selector:@selector(speedUpBall)
      name:@"SpeedUp"
      object:nil];
+    ballExists = YES;
 }
 
 -(void)removeBall {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SpeedUp" object:nil];
     [[[CCDirector sharedDirector] scheduler] pauseTarget:self];
     [parentLayer removeChildByTag:BALL_TAG cleanup:NO];
+    //Fixture
+    if(ballExists)
+    {
+        if(Fixture != nil)
+            Body->DestroyFixture(Fixture);
+        
+        //Body
+        if(Body != nil)
+            mainWorld->DestroyBody(Body);
+        
+        //Sprite
+        if(Sprite != nil)
+        {
+            [Sprite release];
+            Sprite = nil;
+        }
+    }
+    ballExists = NO;
 }
 
 int newSpeed = 30;

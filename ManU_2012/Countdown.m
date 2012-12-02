@@ -24,7 +24,7 @@
         
         NSString *boopPath = [NSString stringWithFormat:@"%@/boop.mp3", [[NSBundle mainBundle] resourcePath]];
         NSURL *boopURL = [NSURL fileURLWithPath:boopPath];
-        NSString* error;
+        NSError* error;
         boopPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:boopURL error:&error];
         boopPlayer.numberOfLoops = 0;
         

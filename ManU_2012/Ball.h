@@ -20,6 +20,7 @@
     b2Body* leftBody;
     b2Body* rightBody;
     CCLayer* parentLayer;
+    b2World* mainWorld;
 }
 
 @property(readonly,assign) CCSprite* Sprite;

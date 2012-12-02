@@ -37,7 +37,6 @@ bool clientDisconnected = NO;
         NSError *error = nil;
         
         winSize = [CCDirector sharedDirector].winSize;
-		
         newView = [[UIView alloc] initWithFrame:[[CCDirector sharedDirector] view].frame];
         [[[CCDirector sharedDirector] view] addSubview:newView];
         
@@ -120,22 +119,18 @@ bool clientDisconnected = NO;
         
         [countdown spawn:self];
         
-        [self setUpWaitScreen:YES];
+        [self setUpWaitScreen:YES :YES];
 	}
 	return self;
 }
 
-
-
-#pragma mark Wait Screen
-
--(void)setUpWaitScreen: (bool)disconnected
+-(void)talkToKevinsTrackingPage
 {
     NSHTTPURLResponse* urlResponse = nil;
     NSError *error = nil;
     NSString *urlString = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/resources/ios_tracking.php"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setTimeoutInterval:5.0f];
+    [request setTimeoutInterval:7.5f];
     [request setURL:[NSURL URLWithString:urlString]];
     [request setHTTPMethod:@"GET"];
     NSLog(@"Talking to Kevin");
@@ -148,6 +143,14 @@ bool clientDisconnected = NO;
     NSLog(@"Finished talking to kevin");
     [request release];
     request = NULL;
+}
+
+#pragma mark Wait Screen
+
+-(void)setUpWaitScreen: (bool)disconnected  :(bool)init//Game finished
+{
+    [self talkToKevinsTrackingPage];
+    
     if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]
         && [[UIScreen mainScreen] scale] == 2.0) {
         bg = [CCSprite spriteWithFile:@"results_retina.jpg"];
@@ -158,6 +161,11 @@ bool clientDisconnected = NO;
     bg.position = ccp(winSize.width/2, winSize.height/2);
     [self addChild:bg z:0 tag:421];
     
+    
+    if(!init) //Dealloc game
+    {
+        
+    }
     /*
      [smallPlayerOneNameLabel setFont:[UIFont fontWithName:@"Arial" size:20]];
      smallPlayerOneNameLabel.textAlignment = NSTextAlignmentLeft;
@@ -222,7 +230,7 @@ bool clientDisconnected = NO;
         [self finishedScoreScreen];
 }
 
--(void)finishedScoreScreen
+-(void)finishedScoreScreen //Waiting for players
 {
     [scoreScreenPlayerOneGoals setText:@""];
     [scoreScreenPlayerOneShots setText:@""];
@@ -253,6 +261,7 @@ bool clientDisconnected = NO;
     
     playerOneImage = nil;
     playerOneName = @"";
+    [playerOneName release];
     playerTwoImage = nil;
     playerTwoName = @"";
     
@@ -280,35 +289,13 @@ bool clientDisconnected = NO;
     clientDisconnected = NO;
 }
 
-bool isSinglePlayerGame = NO;
-- (IBAction)startGamePressedAction:(id)sender
-{
-    //UIButton *button = (UIButton *)sender;
-    // Get the UITableViewCell which is the superview of the UITableViewCellContentView which is the superview of the UIButton
-    NSLog(@"Start Game Pressed");
-    gameHasStarted = YES;
-    [newView removeFromSuperview];
-    [self setUpGame];
-    
-    [self sendToAll:@"Start" needsReliable:YES :@""];
-}
-
--(IBAction)startOnePlayerPressedAction:(id)sender
-{
-    NSLog(@"One Player Pressed");
-    isSinglePlayerGame = YES;
-    gameHasStarted = YES;
-    [newView removeFromSuperview];
-    [self setUpGame];
-    
-    [self sendToAll:@"Start" needsReliable:YES :@""];
-}
-
-#pragma mark Game Scene
-
--(void) setUpGame
+-(void) setUpGame //Game screen
 {
     [self removeChildByTag:420 cleanup:NO];
+    if(receivedPlayerOneImage)
+        [self removeChildByTag:422 cleanup:NO];
+    if(receivedPlayerTwoImage)
+        [self removeChildByTag:423 cleanup:NO];
     NSLog(@"setUpGame");
     CGSize s = [CCDirector sharedDirector].winSize;
     winSize = s;
@@ -361,7 +348,9 @@ bool isSinglePlayerGame = NO;
     
     [self spawnScoreboards];
     
+    NSLog(@"before");
     [ball addBall];
+    NSLog(@"after");
     
     CCNode *parent = [CCNode node];
     [self addChild:parent z:-1 tag:0];
@@ -386,6 +375,34 @@ bool isSinglePlayerGame = NO;
     //[self addChild:[BoxDebugLayer debugLayerWithWorld:world ptmRatio:PTM_RATIO] z:10000];
 }
 
+bool isSinglePlayerGame = NO;
+- (IBAction)startGamePressedAction:(id)sender
+{
+    //UIButton *button = (UIButton *)sender;
+    // Get the UITableViewCell which is the superview of the UITableViewCellContentView which is the superview of the UIButton
+    NSLog(@"Start Game Pressed");
+    gameHasStarted = YES;
+    [newView removeFromSuperview];
+    [self setUpGame];
+    
+    [self sendToAll:@"Start" needsReliable:YES :@""];
+}
+
+-(IBAction)startOnePlayerPressedAction:(id)sender
+{
+    NSLog(@"One Player Pressed");
+    isSinglePlayerGame = YES;
+    gameHasStarted = YES;
+    [newView removeFromSuperview];
+    [self setUpGame];
+    
+    [self sendToAll:@"Start" needsReliable:YES :@""];
+}
+
+#pragma mark Game Scene
+
+
+
 int _leftScore_SERVER = 0, _rightScore_SERVER = 0;
 int _leftShotsOnGoal_SERVER = 0, _rightShotsOnGoal_SERVER = 0;
 
@@ -403,14 +420,15 @@ int LAST_PLAYER_TOUCH_SERVER = NO_PLAYER_SERVER;
 }
 -(void)higherRightScore{
     [crowdPlayer play];
-    NSLog(@"higherRightScore");
+    [_rightScoreLabel setString:@""];
+    NSLog(@"higherRightScore new");
     if(LAST_PLAYER_TOUCH_SERVER == RIGHT_PLAYER_SERVER)
         [_rightShotsOnGoalLabel setString: [NSString stringWithFormat:@"%d", ++_rightShotsOnGoal_SERVER]];
     [_rightScoreLabel setString: [NSString stringWithFormat:@"%d",++_rightScore_SERVER]];
     LAST_PLAYER_TOUCH_SERVER = NO_PLAYER_SERVER;
 }
 -(void)higherLeftShotsOnGoal{
-    NSLog(@"higherLeftShots");
+    NSLog(@"higherLeftShots new");
     if(LAST_PLAYER_TOUCH_SERVER == RIGHT_PLAYER_SERVER)
     {
         [_rightShotsOnGoalLabel setString: [NSString stringWithFormat:@"%d", ++_rightShotsOnGoal_SERVER]];
@@ -494,9 +512,9 @@ int LAST_PLAYER_TOUCH_SERVER = NO_PLAYER_SERVER;
     contactListener = NULL;
     
     if(clientDisconnected)
-        [self setUpWaitScreen:YES];
+        [self setUpWaitScreen:YES :NO];
     else
-        [self setUpWaitScreen:NO];
+        [self setUpWaitScreen:NO :NO];
 }
 
 -(void) update: (ccTime) dt
@@ -546,16 +564,20 @@ int LAST_PLAYER_TOUCH_SERVER = NO_PLAYER_SERVER;
     NSMutableArray* peerArray;
     peerArray = [NSMutableArray arrayWithCapacity:1];
     [peerArray addObject:peer];
-    //peerArray[0] = peer;
     if (reliable)
     {
-    	//[_matchmakingServer.session sendDataToAllPeers: dataToSend withDataMode:GKSendDataReliable error:nil];
-        [_matchmakingServer.session sendData:dataToSend toPeers:peerArray withDataMode:GKSendDataReliable error:nil];
+    	[_matchmakingServer.session sendData:dataToSend toPeers:peerArray withDataMode:GKSendDataReliable error:nil];
     }
     else
         [_matchmakingServer.session sendData:dataToSend toPeers:peerArray withDataMode:GKSendDataUnreliable error:nil];
 	[archiver release];
+    archiver = nil;
 	[dataToSend release];
+    dataToSend = nil;
+    [peerArray removeAllObjects];
+    peer = nil;
+    peerArray = nil;
+    data = nil;
     //[peerArray release];
 }
 
@@ -633,7 +655,8 @@ bool receivedStartGame = NO;
                     bg = [CCSprite spriteWithFile:@"begingame_background2.jpg"];
                 }
                 bg.position = ccp(winSize.width/2, winSize.height/2);
-                [self addChild:bg z:0];
+                [self removeChildByTag:421 cleanup:NO];
+                [self addChild:bg z:0 tag:422];
                 [newView removeFromSuperview];
                 [[[CCDirector sharedDirector] view] addSubview:newView];
                 receivedPlayerOneImage = YES;
@@ -694,7 +717,8 @@ bool receivedStartGame = NO;
                 }
                 
                 bg.position = ccp(winSize.width/2, winSize.height/2);
-                [self addChild:bg z:0];
+                [self removeChildByTag:422 cleanup:NO];
+                [self addChild:bg z:0 tag:423];
                 [newView removeFromSuperview];
                 [[[CCDirector sharedDirector] view] addSubview:newView];
                 receivedPlayerTwoImage = YES;
