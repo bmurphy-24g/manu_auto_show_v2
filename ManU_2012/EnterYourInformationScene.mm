@@ -133,8 +133,37 @@ bool keyboardShiftedUp = NO;
 -(IBAction)playLaterButtonPressed:(id)sender
 {
     NSLog(@"play later pressed");
+    NSString *urlAddress = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/index.php?filename=%@", self.fileName];
+    NSString* encodedUrl = [urlAddress stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    NSLog(@"ENCODED: %@", encodedUrl);
+    
+    NSURL* url = [NSURL URLWithString:encodedUrl];
+    [self stringWithUrl:url];
+
     [newImageView removeFromSuperview];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[StartScene scene] withColor:ccWHITE]];
+}
+
+- (BOOL)stringWithUrl:(NSURL *)url
+{
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url
+                                                cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                            timeoutInterval:30];
+    // Fetch the JSON response
+    NSData *urlData;
+    NSURLResponse *response;
+    NSError *error;
+    
+    // Make synchronous request
+    urlData = [NSURLConnection sendSynchronousRequest:urlRequest
+                                    returningResponse:&response
+                                                error:&error];
+    if(error)
+        return NO;
+    
+    // Construct a String around the Data from the response
+    //return [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
+    return YES;
 }
 
 -(IBAction)dropDownButtonPressed:(id)sender

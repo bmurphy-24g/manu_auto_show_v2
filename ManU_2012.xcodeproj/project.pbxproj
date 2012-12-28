@@ -271,6 +271,7 @@
 		C7A7FE4F1665768E00B80E22 /* background12.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C7A7FE4E1665768E00B80E22 /* background12.jpg */; };
 		C7A7FE52166578BE00B80E22 /* sendemail_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = C7A7FE50166578BE00B80E22 /* sendemail_btn.png */; };
 		C7A7FE53166578BE00B80E22 /* sendtext_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = C7A7FE51166578BE00B80E22 /* sendtext_btn.png */; };
+		C7AF8E8316790A6C0022383F /* iCadeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7AF8E8116790A6C0022383F /* iCadeReaderView.m */; };
 		C7DDB39F165B30B100CBD743 /* results.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C7DDB39E165B30B100CBD743 /* results.jpg */; };
 		C7DDB3A2165B350400CBD743 /* playercard_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = C7DDB3A1165B350400CBD743 /* playercard_overlay.png */; };
 		C7DDB3A4165B384700CBD743 /* camera_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = C7DDB3A3165B384700CBD743 /* camera_overlay.png */; };
@@ -756,6 +757,9 @@
 		C7A7FE4E1665768E00B80E22 /* background12.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background12.jpg; sourceTree = "<group>"; };
 		C7A7FE50166578BE00B80E22 /* sendemail_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sendemail_btn.png; sourceTree = "<group>"; };
 		C7A7FE51166578BE00B80E22 /* sendtext_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sendtext_btn.png; sourceTree = "<group>"; };
+		C7AF8E8016790A6C0022383F /* iCadeReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCadeReaderView.h; sourceTree = "<group>"; };
+		C7AF8E8116790A6C0022383F /* iCadeReaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCadeReaderView.m; sourceTree = "<group>"; };
+		C7AF8E8216790A6C0022383F /* iCadeState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCadeState.h; sourceTree = "<group>"; };
 		C7DDB39E165B30B100CBD743 /* results.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = results.jpg; sourceTree = "<group>"; };
 		C7DDB3A1165B350400CBD743 /* playercard_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playercard_overlay.png; sourceTree = "<group>"; };
 		C7DDB3A3165B384700CBD743 /* camera_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_overlay.png; sourceTree = "<group>"; };
@@ -864,6 +868,7 @@
 		C76BDE91162755B60051C3B3 /* ManU_2012 */ = {
 			isa = PBXGroup;
 			children = (
+				C7AF8E7E16790A490022383F /* iCade */,
 				C734C96D1663E79C00966609 /* CoreDataStuff */,
 				C79E315D164967F8000DAB83 /* Rackspace */,
 				C72BF0DC1643DE26001E8EF2 /* Data */,
@@ -1544,6 +1549,16 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
+		C7AF8E7E16790A490022383F /* iCade */ = {
+			isa = PBXGroup;
+			children = (
+				C7AF8E8016790A6C0022383F /* iCadeReaderView.h */,
+				C7AF8E8116790A6C0022383F /* iCadeReaderView.m */,
+				C7AF8E8216790A6C0022383F /* iCadeState.h */,
+			);
+			name = iCade;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1859,6 +1874,7 @@
 				C7312B63164C41D3002D9DC2 /* Countdown.m in Sources */,
 				C734C9761663F00000966609 /* NoInternetModel.xcdatamodeld in Sources */,
 				C7A7FE48166553EB00B80E22 /* NoInternetShareScene.m in Sources */,
+				C7AF8E8316790A6C0022383F /* iCadeReaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

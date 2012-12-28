@@ -185,6 +185,7 @@ bool isConnectedToInternet = YES;
         [playButton removeFromSuperview];
         [exitButton setAlpha:1.0f];
         NSString *urlAddress = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/index.php?filename=%@&first=%@&last=%@&position=%@&number=%@", self.fileName, self.firstName, self.lastName, self.position, self.number];
+        NSLog(@"%@", urlAddress);
         self.currentURL = urlAddress;
         NSURL *url = [NSURL URLWithString:urlAddress];
         NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];

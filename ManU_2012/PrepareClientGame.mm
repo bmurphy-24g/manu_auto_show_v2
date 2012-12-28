@@ -9,8 +9,15 @@
 #import "PrepareClientGame.h"
 #import "StartScene.h"
 
+#define NONE 666665
+#define LEFT 666666
+#define RIGHT 666667
+#define UP 666668
+#define DOWN 666669
+
 @implementation PrepareClientGame
 bool receivedGameOver = NO, exitPressed = NO, receivedStartOnePlayer = NO, receivedStartTwoPlayer = NO;
+int currentStickState;
 @synthesize playerImage, playerName, playerPosition, playerFirstName, playerLastName, playerNumber, cloudFileName;
 -(id) init
 {
@@ -49,6 +56,8 @@ bool receivedGameOver = NO, exitPressed = NO, receivedStartOnePlayer = NO, recei
         receivedPlayer = NO, receivedGameOver = NO, receivedScore = NO, receivedShots = NO, gameStarting = NO;
         receivedStartOnePlayer = NO; receivedStartTwoPlayer = NO;
         exitPressed = NO;
+        
+        currentStickState = NONE;
 	}
 	return self;
 }
@@ -181,6 +190,8 @@ bool receivedGameOver = NO, exitPressed = NO, receivedStartOnePlayer = NO, recei
 
 - (void)dealloc
 {
+    NSLog(@"client game dealloc");
+    [newView removeFromSuperview];
     _matchmakingClient.delegate = nil;
     [super dealloc];
 }
@@ -295,8 +306,14 @@ bool receivedGameOver = NO, exitPressed = NO, receivedStartOnePlayer = NO, recei
     {
         NSLog(@"game starting...");
         gameStarting = YES;
-        self.isAccelerometerEnabled = YES;
+        
         [self startAccelerometer];
+        
+        //iCadeReaderView *control = [[iCadeReaderView alloc] initWithFrame:CGRectZero];
+        //[newView addSubview:control];
+        //control.active = YES;
+        //control.delegate = self;
+        //[control release];
     }
     else if (!receivedGameOver && serverPeerID == peerID)
     {
@@ -335,5 +352,66 @@ bool receivedGameOver = NO, exitPressed = NO, receivedStartOnePlayer = NO, recei
     NSError* error = nil;
     NSString* text = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:&error];
     return ( text != NULL ) ? YES : NO;
+}
+
+- (void)setState:(BOOL)state forButton:(iCadeState)button {
+    switch (button) {
+        case iCadeJoystickUp:
+            if(currentStickState == UP)
+            {
+                currentStickState = NONE;
+                [self sendXAccel:0.0f needsReliable:YES];
+            }
+            else
+            {
+                currentStickState = UP;
+                [self sendXAccel:-0.3f needsReliable:YES];
+            }
+            break;
+        case iCadeJoystickRight:
+            if(currentStickState == RIGHT)
+                currentStickState = NONE;
+            else
+            {
+                currentStickState = RIGHT;
+                NSLog(@"RIGHT");
+            }
+            break;
+        case iCadeJoystickDown:
+            if(currentStickState == DOWN)
+            {
+                currentStickState = NONE;
+                [self sendXAccel:0.0f needsReliable:YES];
+            }
+            else
+            {
+                currentStickState = DOWN;
+                [self sendXAccel:0.3f needsReliable:YES];
+                NSLog(@"DOWN");
+            }
+            break;
+        case iCadeJoystickLeft:
+            if(currentStickState == LEFT)
+                currentStickState = NONE;
+            else
+            {
+                currentStickState = LEFT;
+                NSLog(@"LEFT");
+            }
+            break;
+            
+        default:
+            break;
+    }
+    if(currentStickState == NONE)
+        NSLog(@"NONE");
+}
+
+- (void)buttonDown:(iCadeState)button {
+    [self setState:YES forButton:button];
+}
+
+- (void)buttonUp:(iCadeState)button {
+    [self setState:NO forButton:button];
 }
 @end

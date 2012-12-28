@@ -10,8 +10,9 @@
 #import "cocos2d.h"
 #import "MatchmakingClient.h"
 #import "FinalShareScene.h"
+#import "iCadeReaderView.h"
 
-@interface PrepareClientGame : CCLayer <MatchmakingClientDelegate, GKSessionDelegate> {
+@interface PrepareClientGame : CCLayer <MatchmakingClientDelegate, GKSessionDelegate, iCadeEventDelegate> {
     CCSprite* bg;
     CGSize winSize;
     UIView* newView;
@@ -41,5 +42,5 @@
 @property (nonatomic, copy) NSString* playerLastName;
 @property (nonatomic, copy) NSString* cloudFileName;
 @property (nonatomic, copy) UIImage* currentImage;
-+(CCScene *) scene :(UIImage*)img :(NSString*)name :(NSString*)position :(NSString*)number :(NSString*)firstName :(NSString*)lastName :(NSString*)fileName :(UIImage*)img;
++(CCScene *) scene :(UIImage*)img :(NSString*)name :(NSString*)position :(NSString*)number :(NSString*)firstName :(NSString*)lastName :(NSString*)fileName;
 @end

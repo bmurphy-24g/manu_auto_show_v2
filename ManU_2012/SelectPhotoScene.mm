@@ -267,6 +267,8 @@ int currentLeftIndex = 0;
     rssParser.delegate = nil;
     [rssParser release];
     [articles release];
+    
+    [super dealloc];
 }
 
 - (IBAction)continueWithoutPhotoPressedAction:(id)sender
@@ -275,7 +277,7 @@ int currentLeftIndex = 0;
     //[takePhotoButton removeFromSuperview];
     [newView removeFromSuperview];
     NSLog(@"Button Pressed");
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[EnterYourInformationScene scene:[UIImage imageNamed:@"silhouette.png"] :@"silhouette"] withColor:ccWHITE]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[EnterYourInformationScene scene:[UIImage imageNamed:@"silhouette.png"] :@"silhouette3"] withColor:ccWHITE]];
 }
 
 - (IBAction)takePhotoPressedAction:(id)sender
