@@ -10,6 +10,7 @@
 #import "cocos2d.h"
 #import "WaitingForPlayersScreen.h"
 #import "RSClient.h"
+#import "BluetoothManager.h"
 
 @interface ChooseServerOrClientScene : CCLayer {
     CCSprite* bg;
@@ -22,6 +23,7 @@
     RSClient* _rsClient;
     RSContainer* container;
     RSStorageObject* object;
+    BluetoothManager* btManager;
 }
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 +(CCScene *) scene;

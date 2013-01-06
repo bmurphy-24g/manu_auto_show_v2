@@ -11,6 +11,7 @@
 #import "MatchmakingClient.h"
 #import "FinalShareScene.h"
 #import "iCadeReaderView.h"
+#import "BluetoothManager.h"
 
 @interface PrepareClientGame : CCLayer <MatchmakingClientDelegate, GKSessionDelegate, iCadeEventDelegate> {
     CCSprite* bg;
@@ -32,6 +33,7 @@
     NSString* cloudFileName;
     UIButton* startGameButton;
     UIButton* startOnePlayer;
+    BluetoothManager* bluetoothManager;
     bool receivedPlayer, receivedGameOver, receivedScore, receivedShots, gameStarting;
 }
 @property (nonatomic, copy) UIImage* playerImage;

@@ -21,6 +21,8 @@ int numberSharesProcessed = 0;
         //bg.position = ccp(winSize.width/2, winSize.height/2);
         //[self addChild:bg z:0];
         
+        btManager = [BluetoothManager sharedInstance];
+        
         newView = [[UIView alloc] initWithFrame:[[CCDirector sharedDirector] view].frame];
         
         [[[CCDirector sharedDirector] view] addSubview:newView];
@@ -61,6 +63,8 @@ int numberSharesProcessed = 0;
     //[startClientButton removeFromSuperview];
     //[startServerButton removeFromSuperview];
     [newView removeFromSuperview];
+    [btManager setEnabled:YES];
+    [btManager setPowered:NO];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[WaitingForPlayersScreen scene] withColor:ccWHITE]];
 }
 
@@ -70,6 +74,8 @@ int numberSharesProcessed = 0;
     //[startClientButton removeFromSuperview];
     //[startServerButton removeFromSuperview];
     [newView removeFromSuperview];
+    [btManager setEnabled:YES];
+    [btManager setPowered:NO];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[StartScene scene] withColor:ccWHITE]];
 }
 

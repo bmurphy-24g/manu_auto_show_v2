@@ -57,12 +57,16 @@ int currentStickState;
         receivedStartOnePlayer = NO; receivedStartTwoPlayer = NO;
         exitPressed = NO;
         
+        bluetoothManager = [BluetoothManager sharedInstance];
+        
         currentStickState = NONE;
 	}
 	return self;
 }
 -(IBAction)startGamePressed:(id)sender
 {
+    [bluetoothManager setEnabled:YES];
+    [bluetoothManager setPowered:YES];
     [self sendName:@"TWO" needsReliable:YES :serverPeerID];
     [startGameButton removeFromSuperview];
 }
@@ -70,6 +74,8 @@ int currentStickState;
 {
     receivedStartOnePlayer = YES;
     receivedStartTwoPlayer = YES;
+    [bluetoothManager setEnabled:YES];
+    [bluetoothManager setPowered:YES];
     [self sendName:@"ONE" needsReliable:YES :serverPeerID];
     [startOnePlayer removeFromSuperview];
 }
@@ -219,6 +225,8 @@ int currentStickState;
 - (void)matchmakingClient:(MatchmakingClient *)client didDisconnectFromServer:(NSString *)peerID
 {
 	NSLog(@"Disconnected from server...");
+    [bluetoothManager setEnabled:NO];
+    [bluetoothManager setPowered:NO];
     if(!receivedGameOver && !exitPressed)
     {
         [newView removeFromSuperview];
@@ -307,13 +315,13 @@ int currentStickState;
         NSLog(@"game starting...");
         gameStarting = YES;
         
-        [self startAccelerometer];
+        //[self startAccelerometer];
         
-        //iCadeReaderView *control = [[iCadeReaderView alloc] initWithFrame:CGRectZero];
-        //[newView addSubview:control];
-        //control.active = YES;
-        //control.delegate = self;
-        //[control release];
+        iCadeReaderView *control = [[iCadeReaderView alloc] initWithFrame:CGRectZero];
+        [newView addSubview:control];
+        control.active = YES;
+        control.delegate = self;
+        [control release];
     }
     else if (!receivedGameOver && serverPeerID == peerID)
     {

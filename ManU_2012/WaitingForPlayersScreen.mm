@@ -119,15 +119,7 @@ bool clientDisconnected = NO;
         
         [countdown spawn:self];
         
-        screenSaverBackground1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
-        screenSaverBackground2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
-        screenSaverBackground3 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
-        screenSaverBackground4 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
         
-        [screenSaverBackground1 setImage:[UIImage imageNamed:@"background_1.jpg"]];
-        [screenSaverBackground2 setImage:[UIImage imageNamed:@"background_2.jpg"]];
-        [screenSaverBackground3 setImage:[UIImage imageNamed:@"background_3b.jpg"]];
-        [screenSaverBackground4 setImage:[UIImage imageNamed:@"background_4b.jpg"]];
         
         [self setUpWaitScreen:YES :YES];
         
@@ -884,6 +876,16 @@ bool clientDisconnected = NO;
     clientDisconnected = NO;
     
     playerHasJoined = NO;
+    
+    screenSaverBackground1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+    screenSaverBackground2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+    screenSaverBackground3 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+    screenSaverBackground4 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+    
+    [screenSaverBackground1 setImage:[UIImage imageNamed:@"background_1.jpg"]];
+    [screenSaverBackground2 setImage:[UIImage imageNamed:@"background_2.jpg"]];
+    [screenSaverBackground3 setImage:[UIImage imageNamed:@"background_3b.jpg"]];
+    [screenSaverBackground4 setImage:[UIImage imageNamed:@"background_4b.jpg"]];
     
     [self startScreenSaverAnimations];
 }

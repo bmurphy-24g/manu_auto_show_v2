@@ -291,6 +291,7 @@
 		C7A7FE52166578BE00B80E22 /* sendemail_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = C7A7FE50166578BE00B80E22 /* sendemail_btn.png */; };
 		C7A7FE53166578BE00B80E22 /* sendtext_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = C7A7FE51166578BE00B80E22 /* sendtext_btn.png */; };
 		C7AF8E8316790A6C0022383F /* iCadeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7AF8E8116790A6C0022383F /* iCadeReaderView.m */; };
+		C7C610A01698F96B00B5649F /* BluetoothManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7C6109F1698F96B00B5649F /* BluetoothManager.framework */; };
 		C7DDB39F165B30B100CBD743 /* results.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C7DDB39E165B30B100CBD743 /* results.jpg */; };
 		C7DDB3A2165B350400CBD743 /* playercard_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = C7DDB3A1165B350400CBD743 /* playercard_overlay.png */; };
 		C7DDB3A4165B384700CBD743 /* camera_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = C7DDB3A3165B384700CBD743 /* camera_overlay.png */; };
@@ -798,6 +799,8 @@
 		C7AF8E8016790A6C0022383F /* iCadeReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCadeReaderView.h; sourceTree = "<group>"; };
 		C7AF8E8116790A6C0022383F /* iCadeReaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCadeReaderView.m; sourceTree = "<group>"; };
 		C7AF8E8216790A6C0022383F /* iCadeState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCadeState.h; sourceTree = "<group>"; };
+		C7C6109F1698F96B00B5649F /* BluetoothManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BluetoothManager.framework; path = System/Library/PrivateFrameworks/BluetoothManager.framework; sourceTree = SDKROOT; };
+		C7C610A21698F9F300B5649F /* BluetoothManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothManager.h; sourceTree = "<group>"; };
 		C7DDB39E165B30B100CBD743 /* results.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = results.jpg; sourceTree = "<group>"; };
 		C7DDB3A1165B350400CBD743 /* playercard_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playercard_overlay.png; sourceTree = "<group>"; };
 		C7DDB3A3165B384700CBD743 /* camera_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_overlay.png; sourceTree = "<group>"; };
@@ -808,6 +811,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7C610A01698F96B00B5649F /* BluetoothManager.framework in Frameworks */,
 				C734C9781663F32600966609 /* CoreData.framework in Frameworks */,
 				C7312B7D164C8527002D9DC2 /* SystemConfiguration.framework in Frameworks */,
 				C739AF8516482B5000334D8E /* MobileCoreServices.framework in Frameworks */,
@@ -867,6 +871,7 @@
 		C76BDE70162755B50051C3B3 = {
 			isa = PBXGroup;
 			children = (
+				C7C6109F1698F96B00B5649F /* BluetoothManager.framework */,
 				C734C9771663F32600966609 /* CoreData.framework */,
 				C7A03494166354E100CA833A /* icon_144x144.png */,
 				C7312B7C164C8527002D9DC2 /* SystemConfiguration.framework */,
@@ -1432,6 +1437,7 @@
 		C76BE098162755B90051C3B3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C7C610A21698F9F300B5649F /* BluetoothManager.h */,
 				C76BE099162755B90051C3B3 /* Prefix.pch */,
 				C76BE09A162755B90051C3B3 /* main.m */,
 			);
@@ -2018,6 +2024,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2040,6 +2050,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
+				);
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ManU_2012/Prefix.pch;
@@ -2082,6 +2096,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
+				);
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ManU_2012/Prefix.pch;
