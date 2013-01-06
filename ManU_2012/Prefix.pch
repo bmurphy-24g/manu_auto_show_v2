@@ -19,5 +19,9 @@
 #define CAMERA_TRANSFORM                    1.12412
 #define CAMERA_TRANSFORM_X 1
 #define PTM_RATIO 32
+#define IMAGE_WIDTH_FOR_UPLOAD 315
+#define IMAGE_HEIGHT_FOR_UPLOAD 420
+#define IMAGE_COMPLETE_WIDTH 316
+#define IMAGE_COMPLETE_HEIGHT 539
 //#define CAMERA_TRANSFORM_Y 1.12412 //use this is for iOS 3.x
 #define CAMERA_TRANSFORM_Y 1.24299 // use this is for iOS 4.x

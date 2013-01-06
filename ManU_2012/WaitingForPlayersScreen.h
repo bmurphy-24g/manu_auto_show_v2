@@ -43,6 +43,22 @@
     UILabel* scoreScreenPlayerTwoShots;
     UILabel* scoreScreenPlayerTwoGoals;
     
+    UIImageView* screenSaverBackground1;
+    UIImageView* screenSaverBackground2;
+    UIImageView* screenSaverBackground3;
+    UIImageView* screenSaverBackground4;
+    UIImageView* screenSaver1Icon1;
+    UIImageView* screenSaver1Icon2;
+    UIImageView* screenSaver2Icon1;
+    UIImageView* screenSaver2Icon2;
+    UIImageView* screenSaver2Icon3;
+    UIImageView* screenSaver3Icon1;
+    UIImageView* screenSaver3Icon2;
+    UIImageView* screenSaver3Icon3;
+    UIImageView* screenSaver4Icon1;
+    UIImageView* screenSaver4Icon2;
+    UIImageView* screenSaver4Icon3;
+    
     CCSprite *player1;
     CCSprite *player2;
     PhysicsSprite *player1Sprite;
@@ -90,6 +106,8 @@
     UIView* largeView;
     
     NSTimer* scoreScreenTimer;
+    
+    bool playerHasJoined;
     
 }
 @property(nonatomic,retain) PhysicsSprite* SpriteLeft;

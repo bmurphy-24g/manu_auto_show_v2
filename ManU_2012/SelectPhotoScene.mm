@@ -334,7 +334,6 @@ int currentLeftIndex = 0;
     } else {
         [item setObject:ElementValue forKey:elementName];
     }
-    
 }
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser {

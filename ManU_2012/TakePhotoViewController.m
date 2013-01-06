@@ -282,17 +282,17 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 }
 
 - (UIImage*) addImageToImage:(UIImage*)img:(UIImage*)img2{
-    CGSize size = CGSizeMake(img.size.width, img.size.height);
+    CGSize size = CGSizeMake(IMAGE_WIDTH_FOR_UPLOAD, IMAGE_HEIGHT_FOR_UPLOAD);
     UIGraphicsBeginImageContext(size);
     
-    NSLog(@"w: %f h: %f", img.size.width, img.size.height);
+    //NSLog(@"w: %f h: %f", IMAGE_WIDTH_FOR_UPLOAD, IMAGE_HEIGHT_FOR_UPLOAD);
     
     //CGPoint pointImg1 = CGPointMake(0,0);
     //[img drawAtPoint:pointImg1 ];
-    [img drawInRect:CGRectMake(0, 0, img.size.width, img.size.height)];
+    [img drawInRect:CGRectMake(0, 0, IMAGE_WIDTH_FOR_UPLOAD, IMAGE_HEIGHT_FOR_UPLOAD)];
     
     //CGPoint pointImage2 = CGPointMake(0, 0);
-    [img2 drawInRect:CGRectMake(0, 0, img.size.width, img.size.height)];
+    [img2 drawInRect:CGRectMake(0, 0, IMAGE_WIDTH_FOR_UPLOAD, IMAGE_HEIGHT_FOR_UPLOAD)];
     
     
     UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
@@ -302,17 +302,15 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 }
 
 - (UIImage*) addImageToImage:(UIImage*)img:(UIImage*)img2:(UIImage*)img3{
-    CGSize size = CGSizeMake(img3.size.width, img3.size.height);
+    CGSize size = CGSizeMake(IMAGE_COMPLETE_WIDTH, IMAGE_COMPLETE_HEIGHT);
     UIGraphicsBeginImageContext(size);
-    
-    NSLog(@"w: %f h: %f", img.size.width, img.size.height);
     
     //CGPoint pointImg1 = CGPointMake(0,0);
     //[img drawAtPoint:pointImg1 ];
-    [img drawInRect:CGRectMake(0, 0, 316, 423)];
+    [img drawInRect:CGRectMake(0, 0, IMAGE_WIDTH_FOR_UPLOAD, IMAGE_HEIGHT_FOR_UPLOAD)];
     
     //CGPoint pointImage2 = CGPointMake(0, 0);
-    [img2 drawInRect:CGRectMake(0, 0, 316, 423)];
+    [img2 drawInRect:CGRectMake(0, 0, IMAGE_WIDTH_FOR_UPLOAD, IMAGE_HEIGHT_FOR_UPLOAD)];
 
     [img3 drawInRect:CGRectMake(0, 0, 316, 539)];
     

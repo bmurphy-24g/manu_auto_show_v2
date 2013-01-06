@@ -119,7 +119,20 @@ bool clientDisconnected = NO;
         
         [countdown spawn:self];
         
+        screenSaverBackground1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+        screenSaverBackground2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+        screenSaverBackground3 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+        screenSaverBackground4 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+        
+        [screenSaverBackground1 setImage:[UIImage imageNamed:@"background_1.jpg"]];
+        [screenSaverBackground2 setImage:[UIImage imageNamed:@"background_2.jpg"]];
+        [screenSaverBackground3 setImage:[UIImage imageNamed:@"background_3b.jpg"]];
+        [screenSaverBackground4 setImage:[UIImage imageNamed:@"background_4b.jpg"]];
+        
         [self setUpWaitScreen:YES :YES];
+        
+        playerHasJoined = NO;
+        
 	}
 	return self;
 }
@@ -223,11 +236,593 @@ bool clientDisconnected = NO;
     
     
     
-    
     if(!disconnected)
         scoreScreenTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(finishedScoreScreen) userInfo:nil repeats:NO];
     else
         [self finishedScoreScreen];
+}
+
+#pragma mark - Animations
+
+-(void) removeAllAnimations
+{
+    //1
+    if(screenSaverBackground1 != nil)
+    {
+        [screenSaverBackground1 removeFromSuperview];
+        [screenSaverBackground1 release];
+        screenSaverBackground1 = nil;
+    }
+    if(screenSaver1Icon1 != nil)
+    {
+        [screenSaver1Icon1 removeFromSuperview];
+        [screenSaver1Icon1 release];
+        screenSaver1Icon1 = nil;
+    }
+    if(screenSaver1Icon2 != nil)
+    {
+        [screenSaver1Icon2 removeFromSuperview];
+        [screenSaver1Icon2 release];
+        screenSaver1Icon2 = nil;
+    }
+    
+    //2
+    if(screenSaverBackground2 != nil)
+    {
+        [screenSaverBackground2 removeFromSuperview];
+        [screenSaverBackground2 release];
+        screenSaverBackground2 = nil;
+    }
+    if(screenSaver2Icon1 != nil)
+    {
+        [screenSaver2Icon1 removeFromSuperview];
+        [screenSaver2Icon1 release];
+        screenSaver2Icon1 = nil;
+    }
+    if(screenSaver2Icon2 != nil)
+    {
+        [screenSaver2Icon2 removeFromSuperview];
+        [screenSaver2Icon2 release];
+        screenSaver2Icon2 = nil;
+    }
+    if(screenSaver2Icon3 != nil)
+    {
+        [screenSaver2Icon3 removeFromSuperview];
+        [screenSaver2Icon3 release];
+        screenSaver2Icon3 = nil;
+    }
+    
+    //3
+    if(screenSaverBackground3 != nil)
+    {
+        [screenSaverBackground3 removeFromSuperview];
+        [screenSaverBackground3 release];
+        screenSaverBackground3 = nil;
+    }
+    if(screenSaver3Icon1 != nil)
+    {
+        [screenSaver3Icon1 removeFromSuperview];
+        [screenSaver3Icon1 release];
+        screenSaver3Icon1 = nil;
+    }
+    if(screenSaver3Icon2 != nil)
+    {
+        [screenSaver3Icon2 removeFromSuperview];
+        [screenSaver3Icon2 release];
+        screenSaver3Icon2 = nil;
+    }
+    if(screenSaver3Icon3 != nil)
+    {
+        [screenSaver3Icon3 removeFromSuperview];
+        [screenSaver3Icon3 release];
+        screenSaver3Icon3 = nil;
+    }
+    
+    //4
+    if(screenSaverBackground4 != nil)
+    {
+        [screenSaverBackground4 removeFromSuperview];
+        [screenSaverBackground4 release];
+        screenSaverBackground4 = nil;
+    }
+    if(screenSaver4Icon1 != nil)
+    {
+        [screenSaver4Icon1 removeFromSuperview];
+        [screenSaver4Icon1 release];
+        screenSaver4Icon1 = nil;
+    }
+    if(screenSaver4Icon2 != nil)
+    {
+        [screenSaver4Icon2 removeFromSuperview];
+        [screenSaver4Icon2 release];
+        screenSaver4Icon2 = nil;
+    }
+    if(screenSaver4Icon3 != nil)
+    {
+        [screenSaver4Icon3 removeFromSuperview];
+        [screenSaver4Icon3 release];
+        screenSaver4Icon3 = nil;
+    }
+    
+}
+
+-(void) startScreenSaverAnimations
+{
+    [screenSaverBackground1 setAlpha:1.0F];
+    [screenSaverBackground2 setAlpha:0.0F];
+    [screenSaverBackground3 setAlpha:0.0F];
+    [screenSaverBackground4 setAlpha:0.0F];
+    
+    [newView addSubview:screenSaverBackground1];
+    [newView addSubview:screenSaverBackground2];
+    [newView addSubview:screenSaverBackground3];
+    [newView addSubview:screenSaverBackground4];
+    
+    [self screenSaver1FadeIn];
+}
+
+-(void) screenSaver1FadeIn
+{
+    [screenSaverBackground2 setAlpha:0.0F];
+    [screenSaverBackground3 setAlpha:0.0F];
+    if(!playerHasJoined)
+    {
+        [UIView animateWithDuration:2.0F animations:^()
+         {
+             [screenSaverBackground4 setAlpha:0.0F];
+         }
+         completion:^(BOOL finished)
+         {
+             if(!playerHasJoined)
+                 [self screenSaver1IconsSlideIn];
+         }];
+    }
+}
+
+-(void) screenSaver1IconsSlideIn
+{
+    if(!playerHasJoined)
+    {
+        [screenSaverBackground4 setAlpha:0.0F];
+        if (false) {//[[UIScreen mainScreen] respondsToSelector:@selector(scale)]
+            //&& [[UIScreen mainScreen] scale] == 2.0) {
+            NSLog(@"retina!");
+            screenSaver1Icon1 = [[UIImageView alloc] initWithFrame:CGRectMake(-1514, 251, 1514, 120)];
+            screenSaver1Icon2 = [[UIImageView alloc] initWithFrame:CGRectMake(-860, 377, 860, 242)];
+        } else {
+            NSLog(@"Not retina!");
+            screenSaver1Icon1 = [[UIImageView alloc] initWithFrame:CGRectMake(-757, 125, 757, 60)];
+            screenSaver1Icon2 = [[UIImageView alloc] initWithFrame:CGRectMake(-430, 188, 430, 121)];
+        }
+        
+        [screenSaver1Icon1 setImage:[UIImage imageNamed:@"text_1a.png"]];
+        [screenSaver1Icon2 setImage:[UIImage imageNamed:@"text_1b.png"]];
+
+        [newView addSubview:screenSaver1Icon1];
+        [newView addSubview:screenSaver1Icon2];
+        
+        //screenSaver1Icon1 set
+        [UIView animateWithDuration:0.3F animations:^()
+         {
+             CGRect cgr1 = screenSaver1Icon1.frame;
+             [screenSaver1Icon1 setFrame:CGRectMake(0, cgr1.origin.y, cgr1.size.width, cgr1.size.height)];
+         }
+         completion:^(BOOL finished)
+         {
+             [UIView animateWithDuration:0.3F animations:^()
+              {
+                  CGRect cgr2 = screenSaver1Icon2.frame;
+                  [screenSaver1Icon2 setFrame:CGRectMake(0, cgr2.origin.y, cgr2.size.width, cgr2.size.height)];
+              }
+              completion:^(BOOL finished)
+              {
+                  if(!playerHasJoined)
+                      [self screenSaver1IconsSlideOut];
+                  else
+                  {
+                      [screenSaver1Icon1 removeFromSuperview];
+                      [screenSaver1Icon2 removeFromSuperview];
+                      [screenSaver1Icon1 setImage:nil];
+                      [screenSaver1Icon2 setImage:nil];
+                      [screenSaver1Icon1 release];
+                      [screenSaver1Icon2 release];
+                      screenSaver1Icon1 = nil;
+                      screenSaver1Icon2 = nil;
+                  }
+              }];
+         }];
+    }
+}
+
+-(void) screenSaver1IconsSlideOut
+{
+    [UIView animateWithDuration:0.3F delay:5.0 options:nil animations:^()
+     {
+         CGRect cgr1 = screenSaver1Icon1.frame;
+         [screenSaver1Icon1 setFrame:CGRectMake(-1514, cgr1.origin.y, cgr1.size.width, cgr1.size.height)];
+     }
+                     completion:^(BOOL finished)
+     {
+         [UIView animateWithDuration:0.3F animations:^()
+          {
+              CGRect cgr2 = screenSaver1Icon2.frame;
+              [screenSaver1Icon2 setFrame:CGRectMake(-860, cgr2.origin.y, cgr2.size.width, cgr2.size.height)];
+          }
+                          completion:^(BOOL finished)
+          {
+              [screenSaver1Icon1 removeFromSuperview];
+              [screenSaver1Icon2 removeFromSuperview];
+              [screenSaver1Icon1 setImage:nil];
+              [screenSaver1Icon2 setImage:nil];
+              [screenSaver1Icon1 release];
+              [screenSaver1Icon2 release];
+              screenSaver1Icon1 = nil;
+              screenSaver1Icon2 = nil;
+              if(!playerHasJoined)
+                  [self screenSaver2FadeIn];
+          }];
+     }];
+}
+
+-(void) screenSaver2FadeIn
+{
+    [UIView animateWithDuration:2.0F animations:^()
+     {
+         [screenSaverBackground2 setAlpha:1.0F];
+     }
+                     completion:^(BOOL finished)
+     {
+         if(!playerHasJoined)
+             [self screenSaver2IconsSlideIn];
+     }];
+}
+
+-(void) screenSaver2IconsSlideIn
+{
+    [screenSaverBackground3 setAlpha:0.0F];
+    if (false) {//[[UIScreen mainScreen] respondsToSelector:@selector(scale)]
+        //&& [[UIScreen mainScreen] scale] == 2.0) {
+        screenSaver2Icon1 = [[UIImageView alloc] initWithFrame:CGRectMake(-780, 491, 780, 120)];
+        screenSaver2Icon2 = [[UIImageView alloc] initWithFrame:CGRectMake(-943, 619, 943, 120)];
+        screenSaver2Icon3 = [[UIImageView alloc] initWithFrame:CGRectMake(-860, 747, 860, 242)];
+    } else {
+        screenSaver2Icon1 = [[UIImageView alloc] initWithFrame:CGRectMake(-390, 245, 390, 60)];
+        screenSaver2Icon2 = [[UIImageView alloc] initWithFrame:CGRectMake(-472, 309, 472, 60)];
+        screenSaver2Icon3 = [[UIImageView alloc] initWithFrame:CGRectMake(-430, 373, 340, 121)];
+    }
+    
+    [screenSaver2Icon1 setImage:[UIImage imageNamed:@"text_2a.png"]];
+    [screenSaver2Icon2 setImage:[UIImage imageNamed:@"text_2b.png"]];
+    [screenSaver2Icon3 setImage:[UIImage imageNamed:@"text_2c.png"]];
+    
+    [newView addSubview:screenSaver2Icon1];
+    [newView addSubview:screenSaver2Icon2];
+    [newView addSubview:screenSaver2Icon3];
+    
+    //screenSaver1Icon1 set
+    [UIView animateWithDuration:0.3F animations:^()
+     {
+         CGRect cgr1 = screenSaver2Icon1.frame;
+         [screenSaver2Icon1 setFrame:CGRectMake(0, cgr1.origin.y, cgr1.size.width, cgr1.size.height)];
+     }
+                     completion:^(BOOL finished)
+     {
+         [UIView animateWithDuration:0.3F animations:^()
+          {
+              CGRect cgr2 = screenSaver2Icon2.frame;
+              [screenSaver2Icon2 setFrame:CGRectMake(0, cgr2.origin.y, cgr2.size.width, cgr2.size.height)];
+          }
+                          completion:^(BOOL finished)
+          {
+              [UIView animateWithDuration:0.3F animations:^()
+               {
+                   CGRect cgr3 = screenSaver2Icon3.frame;
+                   [screenSaver2Icon3 setFrame:CGRectMake(0, cgr3.origin.y, cgr3.size.width, cgr3.size.height)];
+               }
+                               completion:^(BOOL finished)
+               {
+                   if(!playerHasJoined)
+                       [self screenSaver2IconsSlideOut];
+                   else
+                   {
+                       [screenSaver2Icon1 removeFromSuperview];
+                       [screenSaver2Icon2 removeFromSuperview];
+                       [screenSaver2Icon3 removeFromSuperview];
+                       [screenSaver2Icon1 setImage:nil];
+                       [screenSaver2Icon2 setImage:nil];
+                       [screenSaver2Icon3 setImage:nil];
+                       [screenSaver2Icon1 release];
+                       [screenSaver2Icon2 release];
+                       [screenSaver2Icon3 release];
+                       screenSaver2Icon1 = nil;
+                       screenSaver2Icon2 = nil;
+                       screenSaver2Icon3 = nil;
+                   }
+               }];
+          }];
+     }];
+}
+
+-(void) screenSaver2IconsSlideOut
+{
+    [UIView animateWithDuration:0.3F delay:5.0 options:nil animations:^()
+     {
+         CGRect cgr1 = screenSaver2Icon1.frame;
+         [screenSaver2Icon1 setFrame:CGRectMake(-780, cgr1.origin.y, cgr1.size.width, cgr1.size.height)];
+     }
+                     completion:^(BOOL finished)
+     {
+         [UIView animateWithDuration:0.3F animations:^()
+          {
+              CGRect cgr2 = screenSaver2Icon2.frame;
+              [screenSaver2Icon2 setFrame:CGRectMake(-943, cgr2.origin.y, cgr2.size.width, cgr2.size.height)];
+          }
+                          completion:^(BOOL finished)
+          {
+              [UIView animateWithDuration:0.3F animations:^()
+               {
+                   CGRect cgr3 = screenSaver2Icon3.frame;
+                   [screenSaver2Icon3 setFrame:CGRectMake(-860, cgr3.origin.y, cgr3.size.width, cgr3.size.height)];
+               }
+                               completion:^(BOOL finished)
+               {
+                   [screenSaver2Icon1 removeFromSuperview];
+                   [screenSaver2Icon2 removeFromSuperview];
+                   [screenSaver2Icon3 removeFromSuperview];
+                   [screenSaver2Icon1 setImage:nil];
+                   [screenSaver2Icon2 setImage:nil];
+                   [screenSaver2Icon3 setImage:nil];
+                   [screenSaver2Icon1 release];
+                   [screenSaver2Icon2 release];
+                   [screenSaver2Icon3 release];
+                   screenSaver2Icon1 = nil;
+                   screenSaver2Icon2 = nil;
+                   screenSaver2Icon3 = nil;
+                   if(!playerHasJoined)
+                       [self screenSaver3FadeIn];
+               }];
+          }];
+     }];
+}
+
+-(void) screenSaver3FadeIn
+{
+    [UIView animateWithDuration:2.0F animations:^()
+     {
+         [screenSaverBackground3 setAlpha:1.0F];
+     }
+                     completion:^(BOOL finished)
+     {
+         if(!playerHasJoined)
+             [self screenSaver3IconsSlideIn];
+     }];
+}
+
+-(void) screenSaver3IconsSlideIn
+{
+    if (false) {//[[UIScreen mainScreen] respondsToSelector:@selector(scale)]
+        //&& [[UIScreen mainScreen] scale] == 2.0) {
+        screenSaver3Icon1 = [[UIImageView alloc] initWithFrame:CGRectMake(-780, 591, 780, 120)];
+        screenSaver3Icon2 = [[UIImageView alloc] initWithFrame:CGRectMake(-720, 719, 720, 120)];
+        screenSaver3Icon3 = [[UIImageView alloc] initWithFrame:CGRectMake(-914, 847, 914, 307)];
+    } else {
+        screenSaver3Icon1 = [[UIImageView alloc] initWithFrame:CGRectMake(-390, 295, 390, 60)];
+        screenSaver3Icon2 = [[UIImageView alloc] initWithFrame:CGRectMake(-360, 359, 360, 60)];
+        screenSaver3Icon3 = [[UIImageView alloc] initWithFrame:CGRectMake(-457, 423, 457, 154)];
+    }
+    
+    [screenSaver3Icon1 setImage:[UIImage imageNamed:@"text_3a.png"]];
+    [screenSaver3Icon2 setImage:[UIImage imageNamed:@"text_3b.png"]];
+    [screenSaver3Icon3 setImage:[UIImage imageNamed:@"text_3c.png"]];
+    
+    [newView addSubview:screenSaver3Icon1];
+    [newView addSubview:screenSaver3Icon2];
+    [newView addSubview:screenSaver3Icon3];
+    
+    //screenSaver1Icon1 set
+    [UIView animateWithDuration:0.3F animations:^()
+     {
+         CGRect cgr1 = screenSaver3Icon1.frame;
+         [screenSaver3Icon1 setFrame:CGRectMake(0, cgr1.origin.y, cgr1.size.width, cgr1.size.height)];
+     }
+                     completion:^(BOOL finished)
+     {
+         [UIView animateWithDuration:0.3F animations:^()
+          {
+              CGRect cgr2 = screenSaver3Icon2.frame;
+              [screenSaver3Icon2 setFrame:CGRectMake(0, cgr2.origin.y, cgr2.size.width, cgr2.size.height)];
+          }
+                          completion:^(BOOL finished)
+          {
+              [UIView animateWithDuration:0.3F animations:^()
+               {
+                   CGRect cgr3 = screenSaver3Icon3.frame;
+                   [screenSaver3Icon3 setFrame:CGRectMake(0, cgr3.origin.y, cgr3.size.width, cgr3.size.height)];
+               }
+                               completion:^(BOOL finished)
+               {
+                   if(!playerHasJoined)
+                       [self screenSaver3IconsSlideOut];
+                   else
+                   {
+                       [screenSaver3Icon1 removeFromSuperview];
+                       [screenSaver3Icon2 removeFromSuperview];
+                       [screenSaver3Icon3 removeFromSuperview];
+                       [screenSaver3Icon1 setImage:nil];
+                       [screenSaver3Icon2 setImage:nil];
+                       [screenSaver3Icon3 setImage:nil];
+                       [screenSaver3Icon1 release];
+                       [screenSaver3Icon2 release];
+                       [screenSaver3Icon3 release];
+                       screenSaver3Icon1 = nil;
+                       screenSaver3Icon2 = nil;
+                       screenSaver3Icon3 = nil;
+                   }
+               }];
+          }];
+     }];
+}
+
+-(void) screenSaver3IconsSlideOut
+{
+    [UIView animateWithDuration:0.3F delay:5.0 options:nil animations:^()
+     {
+         CGRect cgr1 = screenSaver3Icon1.frame;
+         [screenSaver3Icon1 setFrame:CGRectMake(-780, cgr1.origin.y, cgr1.size.width, cgr1.size.height)];
+     }
+                     completion:^(BOOL finished)
+     {
+         [UIView animateWithDuration:0.3F animations:^()
+          {
+              CGRect cgr2 = screenSaver3Icon2.frame;
+              [screenSaver3Icon2 setFrame:CGRectMake(-720, cgr2.origin.y, cgr2.size.width, cgr2.size.height)];
+          }
+                          completion:^(BOOL finished)
+          {
+              [UIView animateWithDuration:0.3F animations:^()
+               {
+                   CGRect cgr3 = screenSaver3Icon3.frame;
+                   [screenSaver3Icon3 setFrame:CGRectMake(-914, cgr3.origin.y, cgr3.size.width, cgr3.size.height)];
+               }
+                               completion:^(BOOL finished)
+               {
+                   [screenSaver3Icon1 removeFromSuperview];
+                   [screenSaver3Icon2 removeFromSuperview];
+                   [screenSaver3Icon3 removeFromSuperview];
+                   [screenSaver3Icon1 setImage:nil];
+                   [screenSaver3Icon2 setImage:nil];
+                   [screenSaver3Icon3 setImage:nil];
+                   [screenSaver3Icon1 release];
+                   [screenSaver3Icon2 release];
+                   [screenSaver3Icon3 release];
+                   screenSaver3Icon1 = nil;
+                   screenSaver3Icon2 = nil;
+                   screenSaver3Icon3 = nil;
+                   if(!playerHasJoined)
+                       [self screenSaver4FadeIn];
+               }];
+          }];
+     }];
+}
+
+-(void) screenSaver4FadeIn
+{
+    [UIView animateWithDuration:2.0F animations:^()
+     {
+         [screenSaverBackground4 setAlpha:1.0F];
+     }
+                     completion:^(BOOL finished)
+     {
+         if(!playerHasJoined)
+             [self screenSaver4IconsSlideIn];
+     }];
+}
+
+-(void) screenSaver4IconsSlideIn
+{
+    if (false) {//[[UIScreen mainScreen] respondsToSelector:@selector(scale)]
+        //&& [[UIScreen mainScreen] scale] == 2.0) {
+        screenSaver4Icon1 = [[UIImageView alloc] initWithFrame:CGRectMake(-1291, 391, 1291, 120)];
+        screenSaver4Icon2 = [[UIImageView alloc] initWithFrame:CGRectMake(-1426, 519, 1426, 242)];
+        screenSaver4Icon3 = [[UIImageView alloc] initWithFrame:CGRectMake(-1073, 767, 1073, 120)];
+    } else {
+        screenSaver4Icon1 = [[UIImageView alloc] initWithFrame:CGRectMake(-646, 195, 646, 60)];
+        screenSaver4Icon2 = [[UIImageView alloc] initWithFrame:CGRectMake(-713, 259, 713, 121)];
+        screenSaver4Icon3 = [[UIImageView alloc] initWithFrame:CGRectMake(-537, 383, 537, 60)];
+    }
+    
+    [screenSaver4Icon1 setImage:[UIImage imageNamed:@"text_4a.png"]];
+    [screenSaver4Icon2 setImage:[UIImage imageNamed:@"text_4b.png"]];
+    [screenSaver4Icon3 setImage:[UIImage imageNamed:@"text_4c.png"]];
+    
+    [newView addSubview:screenSaver4Icon1];
+    [newView addSubview:screenSaver4Icon2];
+    [newView addSubview:screenSaver4Icon3];
+    
+    //screenSaver1Icon1 set
+    [UIView animateWithDuration:0.3F animations:^()
+     {
+         CGRect cgr1 = screenSaver4Icon1.frame;
+         [screenSaver4Icon1 setFrame:CGRectMake(0, cgr1.origin.y, cgr1.size.width, cgr1.size.height)];
+     }
+                     completion:^(BOOL finished)
+     {
+         [UIView animateWithDuration:0.3F animations:^()
+          {
+              CGRect cgr2 = screenSaver4Icon2.frame;
+              [screenSaver4Icon2 setFrame:CGRectMake(0, cgr2.origin.y, cgr2.size.width, cgr2.size.height)];
+          }
+                          completion:^(BOOL finished)
+          {
+              [UIView animateWithDuration:0.3F animations:^()
+               {
+                   CGRect cgr3 = screenSaver4Icon3.frame;
+                   [screenSaver4Icon3 setFrame:CGRectMake(0, cgr3.origin.y, cgr3.size.width, cgr3.size.height)];
+               }
+                               completion:^(BOOL finished)
+               {
+                    if(!playerHasJoined)
+                        [self screenSaver4IconsSlideOut];
+                   else
+                   {
+                       [screenSaver4Icon1 removeFromSuperview];
+                       [screenSaver4Icon2 removeFromSuperview];
+                       [screenSaver4Icon3 removeFromSuperview];
+                       [screenSaver4Icon1 setImage:nil];
+                       [screenSaver4Icon2 setImage:nil];
+                       [screenSaver4Icon3 setImage:nil];
+                       [screenSaver4Icon1 release];
+                       [screenSaver4Icon2 release];
+                       [screenSaver4Icon3 release];
+                       screenSaver4Icon1 = nil;
+                       screenSaver4Icon2 = nil;
+                       screenSaver4Icon3 = nil;
+                   }
+               }];
+          }];
+     }];
+}
+
+-(void) screenSaver4IconsSlideOut
+{
+    [UIView animateWithDuration:0.3F delay:5.0 options:nil animations:^()
+     {
+         CGRect cgr1 = screenSaver4Icon1.frame;
+         [screenSaver4Icon1 setFrame:CGRectMake(-1291, cgr1.origin.y, cgr1.size.width, cgr1.size.height)];
+     }
+                     completion:^(BOOL finished)
+     {
+         [UIView animateWithDuration:0.3F animations:^()
+          {
+              CGRect cgr2 = screenSaver4Icon2.frame;
+              [screenSaver4Icon2 setFrame:CGRectMake(-1426, cgr2.origin.y, cgr2.size.width, cgr2.size.height)];
+          }
+                          completion:^(BOOL finished)
+          {
+              [UIView animateWithDuration:0.3F animations:^()
+               {
+                   CGRect cgr3 = screenSaver4Icon3.frame;
+                   [screenSaver4Icon3 setFrame:CGRectMake(-1073, cgr3.origin.y, cgr3.size.width, cgr3.size.height)];
+               }
+                               completion:^(BOOL finished)
+               {
+                   [screenSaver4Icon1 removeFromSuperview];
+                   [screenSaver4Icon2 removeFromSuperview];
+                   [screenSaver4Icon3 removeFromSuperview];
+                   [screenSaver4Icon1 setImage:nil];
+                   [screenSaver4Icon2 setImage:nil];
+                   [screenSaver4Icon3 setImage:nil];
+                   [screenSaver4Icon1 release];
+                   [screenSaver4Icon2 release];
+                   [screenSaver4Icon3 release];
+                   screenSaver4Icon1 = nil;
+                   screenSaver4Icon2 = nil;
+                   screenSaver4Icon3 = nil;
+                   if(!playerHasJoined)
+                       [self screenSaver1FadeIn];
+               }];
+          }];
+     }];
 }
 
 -(void)finishedScoreScreen //Waiting for players
@@ -287,6 +882,10 @@ bool clientDisconnected = NO;
     isSinglePlayerGame = NO;
     
     clientDisconnected = NO;
+    
+    playerHasJoined = NO;
+    
+    [self startScreenSaverAnimations];
 }
 
 -(void) setUpGame //Game screen
@@ -648,6 +1247,8 @@ bool receivedStartGame = NO;
             NSLog(@"Finished decoding");
             if(!receivedPlayerOneImage)
             {
+                playerHasJoined = YES;
+                [self removeAllAnimations];
                 if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]
                     && [[UIScreen mainScreen] scale] == 2.0) {
                     bg = [CCSprite spriteWithFile:@"begingame_background2_retina.jpg"];
