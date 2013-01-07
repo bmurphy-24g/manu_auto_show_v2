@@ -40,6 +40,11 @@
     NSMutableString *ElementValue;
     NSMutableArray *fileNames;
     BOOL errorParsing;
+    
+    UIActivityIndicatorView* pictureOneActivityMonitor;
+    UIActivityIndicatorView* pictureTwoActivityMonitor;
+    UIActivityIndicatorView* pictureThreeActivityMonitor;
+    UIActivityIndicatorView* pictureFourActivityMonitor;
 }
 @property (nonatomic, copy) NSArray* sortedObjectsArray;
 @property (nonatomic, strong) RSStorageObject *object;

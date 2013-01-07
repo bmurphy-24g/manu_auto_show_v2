@@ -65,8 +65,8 @@ int currentStickState;
 }
 -(IBAction)startGamePressed:(id)sender
 {
-    [bluetoothManager setEnabled:YES];
-    [bluetoothManager setPowered:YES];
+    //[bluetoothManager setEnabled:YES];
+    //[bluetoothManager setPowered:YES];
     [self sendName:@"TWO" needsReliable:YES :serverPeerID];
     [startGameButton removeFromSuperview];
 }
@@ -74,8 +74,7 @@ int currentStickState;
 {
     receivedStartOnePlayer = YES;
     receivedStartTwoPlayer = YES;
-    [bluetoothManager setEnabled:YES];
-    [bluetoothManager setPowered:YES];
+    
     [self sendName:@"ONE" needsReliable:YES :serverPeerID];
     [startOnePlayer removeFromSuperview];
 }
@@ -174,6 +173,8 @@ int currentStickState;
 }
 
 -(void)sendName:(NSString*)nameToSend needsReliable:(BOOL)reliable:(NSString*)peer{
+    [bluetoothManager setEnabled:YES];
+    [bluetoothManager setPowered:YES];
     NSLog(@"Should be sending %@", nameToSend);
     NSMutableData *dataToSend = [[NSMutableData alloc] init];
 	NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:dataToSend];

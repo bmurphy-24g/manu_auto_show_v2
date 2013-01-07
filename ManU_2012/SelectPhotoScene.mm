@@ -78,6 +78,23 @@
         [scrollRightButton addTarget:self action:@selector(scrollRightClicked:) forControlEvents:UIControlEventTouchUpInside];
         [newView addSubview:scrollRightButton];
         
+        pictureOneActivityMonitor = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(150, 310, 30, 30)];
+        [newView addSubview:pictureOneActivityMonitor];
+        pictureTwoActivityMonitor = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(381, 310, 30, 30)];
+        [newView addSubview:pictureTwoActivityMonitor];
+        pictureThreeActivityMonitor = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(611, 310, 30, 30)];
+        [newView addSubview:pictureThreeActivityMonitor];
+        pictureFourActivityMonitor = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(842, 310, 30, 30)];
+        [newView addSubview:pictureFourActivityMonitor];
+        
+        
+        
+        [[NSNotificationCenter defaultCenter]
+         addObserver:self
+         selector:@selector(loadImages)
+         name:@"LoadImages"
+         object:nil];
+        
         /*curImageOne = [UIImage alloc];
         curImageTwo = [UIImage alloc];
         curImageThree = [UIImage alloc];
@@ -97,26 +114,35 @@
 
 int currentLeftIndex = 0;
 
--(void)loadImages
+-(void)showImageOne
 {
-    for(NSString* s in fileNames)
-    {
-        NSLog(@"%@", s);
-    }
     
-    NSLog(@"Loading images");
+}
+
+-(void)loadImageOne
+{
+    //[pictureOneActivityMonitor startAnimating];
     //Button 1
     if([fileNames count] > 0 && ![fileNames[0] isEqualToString:@"-1"])
     {
         NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[NSString stringWithFormat:@"http://a65724859e6559c43827-07ad0f7ce40dfee8df7f975329be3801.r13.cf1.rackcdn.com/%@.jpg", fileNames[0]]]];
         curImageOne = [UIImage imageWithData: imageData];
         [pictureOneButton setBackgroundColor:[UIColor clearColor]];
+        
+        //[pictureOneButton performSelectorOnMainThread:@selector(showImageOne) withObject:nil waitUntilDone:NO];
         [pictureOneButton setBackgroundImage:curImageOne forState:UIControlStateNormal];
         [pictureOneButton setEnabled:YES];
+        
+        //[pictureOneButton setNeedsDisplayInRect:pictureOneButton.frame];
+        //[pictureOneButton updateConstraints];
         NSLog(@"image on loaded");
         [imageData release];
     }
-    
+    [pictureOneActivityMonitor performSelectorOnMainThread:@selector(stopAnimating) withObject:nil waitUntilDone:NO];
+}
+
+-(void)loadImageTwo
+{
     if([fileNames count] > 1 && ![fileNames[1] isEqualToString:@"-1"])
     {
         //Button 2
@@ -125,10 +151,15 @@ int currentLeftIndex = 0;
         [pictureTwoButton setBackgroundColor:[UIColor clearColor]];
         [pictureTwoButton setBackgroundImage:curImageTwo forState:UIControlStateNormal];
         [pictureTwoButton setEnabled:YES];
+        [pictureTwoButton setNeedsDisplay];
         NSLog(@"image two loaded");
         [imageData release];
     }
-    
+    [pictureTwoActivityMonitor performSelectorOnMainThread:@selector(stopAnimating) withObject:nil waitUntilDone:NO];
+}
+
+-(void)loadImageThree
+{
     //Button 3
     if([fileNames count] > 2 && ![fileNames[2] isEqualToString:@"-1"])
     {
@@ -137,10 +168,15 @@ int currentLeftIndex = 0;
         [pictureThreeButton setBackgroundColor:[UIColor clearColor]];
         [pictureThreeButton setBackgroundImage:curImageThree forState:UIControlStateNormal];
         [pictureThreeButton setEnabled:YES];
+        [pictureThreeButton setNeedsDisplay];
         NSLog(@"image three loaded");
         [imageData release];
     }
-    
+    [pictureThreeActivityMonitor performSelectorOnMainThread:@selector(stopAnimating) withObject:nil waitUntilDone:NO];
+}
+
+-(void)loadImageFour
+{
     //Button 4
     if([fileNames count] > 3 && ![fileNames[3] isEqualToString:@"-1"])
     {
@@ -149,10 +185,27 @@ int currentLeftIndex = 0;
         [pictureFourButton setBackgroundColor:[UIColor clearColor]];
         [pictureFourButton setBackgroundImage:curImageFour forState:UIControlStateNormal];
         [pictureFourButton setEnabled:YES];
+        [pictureFourButton setNeedsDisplay];
         NSLog(@"image four loaded");
         [imageData release];
         imageData = nil;
     }
+    [pictureFourActivityMonitor performSelectorOnMainThread:@selector(stopAnimating) withObject:nil waitUntilDone:NO];
+}
+
+-(void)loadImages
+{
+    for(NSString* s in fileNames)
+    {
+        NSLog(@"%@", s);
+    }
+    
+    NSLog(@"Loading images");
+    
+    [NSThread detachNewThreadSelector:@selector(loadImageOne) toTarget:self withObject:nil];
+    [NSThread detachNewThreadSelector:@selector(loadImageTwo) toTarget:self withObject:nil];
+    [NSThread detachNewThreadSelector:@selector(loadImageThree) toTarget:self withObject:nil];
+    [NSThread detachNewThreadSelector:@selector(loadImageFour) toTarget:self withObject:nil];
 }
 
 -(IBAction)scrollLeftClicked:(id)sender
@@ -253,8 +306,11 @@ int currentLeftIndex = 0;
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[EnterYourInformationScene scene:curImageFour :newFileName] withColor:ccWHITE]];
 }
 
+
+
 -(void)dealloc
 {
+    NSLog(@"selectphoto dealloc!");
     [ElementValue release];
     [fileNames release];
     [pictureOneButton release];
@@ -267,6 +323,8 @@ int currentLeftIndex = 0;
     rssParser.delegate = nil;
     [rssParser release];
     [articles release];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"LoadImages" object:nil];
     
     [super dealloc];
 }
@@ -341,7 +399,31 @@ int currentLeftIndex = 0;
     if (errorParsing == NO)
     {
         NSLog(@"XML processing done!");
+        //dispatch_sync(dispatch_get_main_queue(), ^ {
+            //[self loadImageOne];
+        /*NSOperationQueue *queue = [NSOperationQueue new];
+        NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+                                            initWithTarget:self
+                                            selector:@selector(loadImage)
+                                            object:nil];
+        [queue addOperation:operation];
+        [operation release];*/
+        [pictureOneActivityMonitor performSelectorOnMainThread:@selector(startAnimating) withObject:nil waitUntilDone:NO];// startAnimating];
+        [pictureTwoActivityMonitor performSelectorOnMainThread:@selector(startAnimating) withObject:nil waitUntilDone:NO];
+        [pictureThreeActivityMonitor performSelectorOnMainThread:@selector(startAnimating) withObject:nil waitUntilDone:NO];
+        [pictureFourActivityMonitor performSelectorOnMainThread:@selector(startAnimating) withObject:nil waitUntilDone:NO];
+        
+        /*//[self performSelectorOnMainThread:@selector(loadImageOne) withObject:nil waitUntilDone:NO];
+        //[self loadImageOne];
+        [self performSelectorOnMainThread:@selector(loadImageTwo) withObject:nil waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(loadImageThree) withObject:nil waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(loadImageFour) withObject:nil waitUntilDone:NO];*/
         [self loadImages];
+        //});
+        
+        /*[[NSNotificationCenter defaultCenter]
+         postNotificationName:@"LoadImages"
+         object:nil ];*/
     } else {
         NSLog(@"Error occurred during XML processing");
     }
