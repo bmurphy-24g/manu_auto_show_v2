@@ -44,7 +44,8 @@
     //NSString *urlAddress = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/index.php?filename=%@&first=%@&last=%@&position=%@&number=%@&goals=5&shots=22", fileName, firstName, lastName, position, number];
     if(isConnectedToInternet)
     {
-        NSString *urlAddress = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/index.php?filename=%@&first=%@&last=%@&position=%@&number=%@&hide_right=true", fileName, firstName, lastName, position, number];
+        NSString* location = [[NSUserDefaults standardUserDefaults] stringForKey:@"location"];
+        NSString *urlAddress = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/index.php?filename=%@&first=%@&last=%@&position=%@&number=%@&hide_right=true&location_id=%@", fileName, firstName, lastName, position, number, [location lowercaseString]];
         self.currentURL = urlAddress;
         NSLog(@"%@", urlAddress);
         NSURL *url = [NSURL URLWithString:urlAddress];
@@ -131,6 +132,10 @@ bool isConnectedToInternet = YES;
             NSLog(@"Not connected to internet");
             
         }
+        
+        btManager = [BluetoothManager sharedInstance];
+        [btManager setEnabled:NO];
+        [btManager setPowered:NO];
 
 	}
 	return self;
@@ -184,7 +189,8 @@ bool isConnectedToInternet = YES;
         [shareButton removeFromSuperview];
         [playButton removeFromSuperview];
         [exitButton setAlpha:1.0f];
-        NSString *urlAddress = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/index.php?filename=%@&first=%@&last=%@&position=%@&number=%@", self.fileName, self.firstName, self.lastName, self.position, self.number];
+        NSString* location = [[NSUserDefaults standardUserDefaults] stringForKey:@"location"];
+        NSString *urlAddress = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/index.php?filename=%@&first=%@&last=%@&position=%@&number=%@&location_id=%@", self.fileName, self.firstName, self.lastName, self.position, self.number, [location lowercaseString]];
         NSLog(@"%@", urlAddress);
         self.currentURL = urlAddress;
         NSURL *url = [NSURL URLWithString:urlAddress];
@@ -223,6 +229,8 @@ bool isConnectedToInternet = YES;
 {
     NSLog(@"InitialShare dealloc");
     shareWebView.delegate = nil;
+    [btManager setEnabled:YES];
+    [btManager setPowered:YES];
     [super dealloc];
 }
 

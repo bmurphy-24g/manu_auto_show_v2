@@ -58,6 +58,7 @@
     UIImageView* screenSaver4Icon1;
     UIImageView* screenSaver4Icon2;
     UIImageView* screenSaver4Icon3;
+    UIImageView* iconsSaver4;
     
     CCSprite *player1;
     CCSprite *player2;

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Title</key>
+			<string>Auto Show</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Select auto show</string>
+			<key>Key</key>
+			<string>location</string>
+			<key>DefaultValue</key>
+			<integer>0</integer>
+			<key>Values</key>
+			<array>
+				<string>Atlanta</string>
+				<string>Austin</string>
+				<string>Baltimore</string>
+				<string>Bethleham</string>
+				<string>Birmingham</string>
+				<string>Boston</string>
+				<string>Buffalo</string>
+				<string>Charleston</string>
+				<string>Charlotte</string>
+				<string>Chicago</string>
+				<string>Cincinnati</string>
+				<string>Cleveland</string>
+				<string>Columbus</string>
+				<string>Dallas</string>
+				<string>Davenport</string>
+				<string>Dayton</string>
+				<string>Denver</string>
+				<string>Detroit</string>
+				<string>Ft. Lauderdale</string>
+				<string>Ft. Worth</string>
+				<string>Grand Rapids</string>
+				<string>Greenville</string>
+				<string>Harrisburg</string>
+				<string>Hartford</string>
+				<string>Houston</string>
+				<string>Indianapolis</string>
+				<string>Jacksonville</string>
+				<string>Kansas City</string>
+				<string>Knoxville</string>
+				<string>Las Vegas</string>
+				<string>Louisville</string>
+				<string>Memphis</string>
+				<string>Milwaukee</string>
+				<string>Minneapolis</string>
+				<string>Nashville</string>
+				<string>New Orleans</string>
+				<string>New York</string>
+				<string>Oklahoma</string>
+				<string>Omaha</string>
+				<string>Ontario, CA</string>
+				<string>Peoria</string>
+				<string>Philadelphia</string>
+				<string>Phoenix</string>
+				<string>Pittsburg</string>
+				<string>Portland</string>
+				<string>Providence</string>
+				<string>Raleigh</string>
+				<string>Richmond</string>
+				<string>Rochester</string>
+				<string>Sacramento</string>
+				<string>Salt Lake City</string>
+				<string>San Antonio</string>
+				<string>San Jose</string>
+				<string>St. Louis</string>
+				<string>Syracuse</string>
+				<string>Texas</string>
+				<string>Toledo</string>
+				<string>Virginia Beach</string>
+				<string>Washinton D.C.</string>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Atlanta</string>
+				<string>Austin</string>
+				<string>Baltimore</string>
+				<string>Bethleham</string>
+				<string>Birmingham</string>
+				<string>Boston</string>
+				<string>Buffalo</string>
+				<string>Charleston</string>
+				<string>Charlotte</string>
+				<string>Chicago</string>
+				<string>Cincinnati</string>
+				<string>Cleveland</string>
+				<string>Columbus</string>
+				<string>Dallas</string>
+				<string>Davenport</string>
+				<string>Dayton</string>
+				<string>Denver</string>
+				<string>Detroit</string>
+				<string>Ft. Lauderdale</string>
+				<string>Ft. Worth</string>
+				<string>Grand Rapids</string>
+				<string>Greenville</string>
+				<string>Harrisburg</string>
+				<string>Hartford</string>
+				<string>Houston</string>
+				<string>Indianapolis</string>
+				<string>Jacksonville</string>
+				<string>Kansas City</string>
+				<string>Knoxville</string>
+				<string>Las Vegas</string>
+				<string>Louisville</string>
+				<string>Memphis</string>
+				<string>Milwaukee</string>
+				<string>Minneapolis</string>
+				<string>Nashville</string>
+				<string>New Orleans</string>
+				<string>New York</string>
+				<string>Oklahoma</string>
+				<string>Omaha</string>
+				<string>Ontario, CA</string>
+				<string>Peoria</string>
+				<string>Philadelphia</string>
+				<string>Phoenix</string>
+				<string>Pittsburg</string>
+				<string>Portland</string>
+				<string>Providence</string>
+				<string>Raleigh</string>
+				<string>Richmond</string>
+				<string>Rochester</string>
+				<string>Sacramento</string>
+				<string>Salt Lake City</string>
+				<string>San Antonio</string>
+				<string>San Jose</string>
+				<string>St. Louis</string>
+				<string>Syracuse</string>
+				<string>Texas</string>
+				<string>Toledo</string>
+				<string>Virginia Beach</string>
+				<string>Washinton D.C.</string>
+			</array>
+		</dict>
+	</array>
+	<key>StringsTable</key>
+	<string>Root</string>
+</dict>
+</plist>

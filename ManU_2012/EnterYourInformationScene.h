@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "cocos2d.h"
 #import "InitialShareScene.h"
+#import "BluetoothManager.h"
 
 @interface EnterYourInformationScene : CCLayer <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate> {
     CCSprite* bg;
@@ -31,6 +32,7 @@
     UIButton* dropDownButton;
     UIButton* playLaterButton;
     UIImageView* backgroundImageView;
+    BluetoothManager* btManager;
 }
 
 @property (nonatomic, copy) NSString* fileName;

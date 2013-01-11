@@ -109,7 +109,11 @@
 }
 
 -(void)onEnterTransitionDidFinish {
-    [self parseXMLFileAtURL:@"http://social-gen.com/chevroletfc/ipad/resources/latest_images.xml"];
+    NSString* location = [[NSUserDefaults standardUserDefaults] stringForKey:@"location"];
+    location = [location lowercaseString];
+    NSLog(@"lowercase location -> %@", location);
+    NSLog([NSString stringWithFormat:@"xml -> %@", [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/resources/latest_images_%@.xml", location]]);
+    [self parseXMLFileAtURL:[NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/resources/latest_images_%@.xml", location]];
 }
 
 int currentLeftIndex = 0;
@@ -323,6 +327,14 @@ int currentLeftIndex = 0;
     rssParser.delegate = nil;
     [rssParser release];
     [articles release];
+    [pictureOneActivityMonitor release];
+    pictureOneActivityMonitor = nil;
+    [pictureTwoActivityMonitor release];
+    pictureTwoActivityMonitor = nil;
+    [pictureThreeActivityMonitor release];
+    pictureThreeActivityMonitor = nil;
+    [pictureFourActivityMonitor release];
+    pictureFourActivityMonitor = nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"LoadImages" object:nil];
     

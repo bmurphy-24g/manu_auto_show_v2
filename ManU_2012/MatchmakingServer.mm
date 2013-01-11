@@ -204,7 +204,7 @@ int numConnected = 0;
 	{
 		if ([error code] == GKSessionCannotEnableError)
 		{
-			[self.delegate matchmakingServerNoNetwork:self];
+			//[self.delegate matchmakingServerNoNetwork:self];
 			[self endSession];
 		}
 	}

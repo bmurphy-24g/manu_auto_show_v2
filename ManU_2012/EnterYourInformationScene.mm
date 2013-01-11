@@ -114,6 +114,12 @@ bool keyboardShiftedUp = NO;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShiftBackgroundUp) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShiftBackgroundDown) name:UIKeyboardWillHideNotification object:nil];
+        
+        //Turn off bluetooth
+        btManager = [BluetoothManager sharedInstance];
+        [btManager setEnabled:NO];
+        [btManager setPowered:NO];
+        
 	}
 	return self;
 }
@@ -264,6 +270,9 @@ numberOfRowsInComponent:(NSInteger)component
 {
     positionPickerView.delegate = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    //Turn bluetooth on
+    [btManager setEnabled:YES];
+    [btManager setPowered:YES];
     [super dealloc];
 }
 

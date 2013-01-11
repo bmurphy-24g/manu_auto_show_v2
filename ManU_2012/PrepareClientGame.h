@@ -35,6 +35,8 @@
     UIButton* startOnePlayer;
     BluetoothManager* bluetoothManager;
     bool receivedPlayer, receivedGameOver, receivedScore, receivedShots, gameStarting;
+    float xAccelToSend;
+    NSTimer* sendICadeTimer;
 }
 @property (nonatomic, copy) UIImage* playerImage;
 @property (nonatomic, copy) NSString* playerName;

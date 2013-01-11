@@ -52,7 +52,9 @@
     
     if([self connectedToNetwork])
     {
-        NSString *urlAddress = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/index.php?filename=%@&first=%@&last=%@&position=%@&number=%@&goals=%@&shots=%@", self.fileName, self.firstName, self.lastName, self.position, self.number, self.playerGoals, self.playerShots];
+        NSString* location = [[NSUserDefaults standardUserDefaults] stringForKey:@"location"];
+        
+        NSString *urlAddress = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/index.php?filename=%@&first=%@&last=%@&position=%@&number=%@&goals=%@&shots=%@&location_id=%@", self.fileName, self.firstName, self.lastName, self.position, self.number, self.playerGoals, self.playerShots, [location lowercaseString]];
         self.currentURL = urlAddress;
         NSLog(@"%@", urlAddress);
         NSURL *url = [NSURL URLWithString:urlAddress];
@@ -139,6 +141,9 @@
         //[testImageView setBackgroundColor:[UIColor whiteColor]];
         //[newView addSubview:testImageView];
         
+        btManager = [BluetoothManager sharedInstance];
+        [btManager setEnabled:NO];
+        [btManager setPowered:NO];
 	}
 	return self;
 }
@@ -146,6 +151,8 @@
 -(void)dealloc
 {
     shareWebView.delegate = nil;
+    [btManager setEnabled:YES];
+    [btManager setPowered:YES];
     [super dealloc];
 }
 

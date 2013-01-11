@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "BluetoothManager.h"
 
 @interface FinalShareScene : CCLayer <UIWebViewDelegate> {
     CCSprite* bg;
@@ -30,6 +31,7 @@
     UIButton* reloadButton;
     NSString* currentURL;
     bool isConnectedToInternet;
+    BluetoothManager* btManager;
 }
 
 @property (nonatomic, copy) UIImage* currentImage;

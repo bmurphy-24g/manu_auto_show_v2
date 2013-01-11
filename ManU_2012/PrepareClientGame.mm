@@ -60,6 +60,8 @@ int currentStickState;
         bluetoothManager = [BluetoothManager sharedInstance];
         
         currentStickState = NONE;
+        
+        xAccelToSend = 0.0f;
 	}
 	return self;
 }
@@ -173,8 +175,8 @@ int currentStickState;
 }
 
 -(void)sendName:(NSString*)nameToSend needsReliable:(BOOL)reliable:(NSString*)peer{
-    [bluetoothManager setEnabled:YES];
-    [bluetoothManager setPowered:YES];
+    //[bluetoothManager setEnabled:YES];
+    //[bluetoothManager setPowered:YES];
     NSLog(@"Should be sending %@", nameToSend);
     NSMutableData *dataToSend = [[NSMutableData alloc] init];
 	NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:dataToSend];
@@ -226,8 +228,8 @@ int currentStickState;
 - (void)matchmakingClient:(MatchmakingClient *)client didDisconnectFromServer:(NSString *)peerID
 {
 	NSLog(@"Disconnected from server...");
-    [bluetoothManager setEnabled:NO];
-    [bluetoothManager setPowered:NO];
+    //[bluetoothManager setEnabled:NO];
+    //[bluetoothManager setPowered:NO];
     if(!receivedGameOver && !exitPressed)
     {
         [newView removeFromSuperview];
@@ -278,6 +280,7 @@ int currentStickState;
 #pragma mark - GKSession Data Receive Handler
 
 
+
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peerID inSession:(GKSession *)session context:(void *)context
 {
 	NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
@@ -323,12 +326,19 @@ int currentStickState;
         control.active = YES;
         control.delegate = self;
         [control release];
+        //sendICadeTimer = [NSTimer alloc];
+        sendICadeTimer = [NSTimer scheduledTimerWithTimeInterval:0.33
+                                         target:self
+                                       selector:@selector(sendICadeDataToServer)
+                                       userInfo:nil
+                                        repeats:YES];
     }
     else if (!receivedGameOver && serverPeerID == peerID)
     {
         NSLog(@"game stopping...");
         [self stopAccelerometer];
         receivedGameOver = YES;
+        [sendICadeTimer invalidate];
     }
     else if (!receivedScore && serverPeerID == peerID)
     {
@@ -363,18 +373,25 @@ int currentStickState;
     return ( text != NULL ) ? YES : NO;
 }
 
+-(void)sendICadeDataToServer
+{
+    [self sendXAccel:xAccelToSend needsReliable:NO];
+}
+
 - (void)setState:(BOOL)state forButton:(iCadeState)button {
     switch (button) {
         case iCadeJoystickUp:
             if(currentStickState == UP)
             {
                 currentStickState = NONE;
-                [self sendXAccel:0.0f needsReliable:YES];
+                xAccelToSend = 0.0f;
+                [self sendXAccel:0.0f needsReliable:NO];
             }
             else
             {
                 currentStickState = UP;
-                [self sendXAccel:-0.3f needsReliable:YES];
+                xAccelToSend = -0.3f;
+                [self sendXAccel:-0.3f needsReliable:NO];
             }
             break;
         case iCadeJoystickRight:
@@ -390,12 +407,14 @@ int currentStickState;
             if(currentStickState == DOWN)
             {
                 currentStickState = NONE;
-                [self sendXAccel:0.0f needsReliable:YES];
+                xAccelToSend = 0.0f;
+                [self sendXAccel:0.0f needsReliable:NO];
             }
             else
             {
                 currentStickState = DOWN;
-                [self sendXAccel:0.3f needsReliable:YES];
+                xAccelToSend = 0.3f;
+                [self sendXAccel:0.3f needsReliable:NO];
                 NSLog(@"DOWN");
             }
             break;

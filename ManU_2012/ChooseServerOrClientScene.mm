@@ -63,8 +63,8 @@ int numberSharesProcessed = 0;
     //[startClientButton removeFromSuperview];
     //[startServerButton removeFromSuperview];
     [newView removeFromSuperview];
-    [btManager setEnabled:YES];
-    [btManager setPowered:NO];
+    //[btManager setEnabled:YES];
+    //[btManager setPowered:NO];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[WaitingForPlayersScreen scene] withColor:ccWHITE]];
 }
 
@@ -74,8 +74,8 @@ int numberSharesProcessed = 0;
     //[startClientButton removeFromSuperview];
     //[startServerButton removeFromSuperview];
     [newView removeFromSuperview];
-    [btManager setEnabled:YES];
-    [btManager setPowered:NO];
+    //[btManager setEnabled:YES];
+    //[btManager setPowered:NO];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:0.0 scene:[StartScene scene] withColor:ccWHITE]];
 }
 
@@ -179,7 +179,8 @@ int numberSharesProcessed = 0;
             NSLog(@"Apparently succeeded?");
             NSLog(@"%@", fileName);
             NSLog(@"%@", info);
-            NSString *urlAddress = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/index.php?filename=%@&first=%@&last=%@", [info valueForKey:@"filename"], [info valueForKey:@"firstname"], @""];
+            NSString* location = [[NSUserDefaults standardUserDefaults] stringForKey:@"location"];
+            NSString *urlAddress = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/index.php?filename=%@&first=%@&last=%@&location_id=%@", [info valueForKey:@"filename"], [info valueForKey:@"firstname"], @"", [location lowercaseString]];
             
             if(![position isEqualToString:@""])
             {
@@ -204,14 +205,15 @@ int numberSharesProcessed = 0;
             if([self stringWithUrl:url])
             {
              
-                urlAddress = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/filename.php?file=%@", [info valueForKey:@"filename"]];
+                NSString* location = [[NSUserDefaults standardUserDefaults] stringForKey:@"location"];
+                urlAddress = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/filename.php?file=%@&location_id=%@", [info valueForKey:@"filename"], [location lowercaseString]];
                 urlString = [urlAddress stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
                 NSLog(@"ENCODED 1st: %@", urlString);
                 url = [NSURL URLWithString:urlString];
                 NSString* assetID = [self stringWithUrlResponse:url];
                 NSLog(@"AssetID: %@", assetID);
                 
-                NSString* urlToSend = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/share_ajax.php?id=%@&type=%@&msg=%@&field1=%@&field2=%@&field3=%@", assetID, [info valueForKey:@"method"], [info valueForKey:@"message"], [info valueForKey:@"field1"], [info valueForKey:@"field2"], [info valueForKey:@"field3"]];
+                NSString* urlToSend = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/share_ajax.php?id=%@&type=%@&msg=%@&field1=%@&field2=%@&field3=%@&location_id=%@", assetID, [info valueForKey:@"method"], [info valueForKey:@"message"], [info valueForKey:@"field1"], [info valueForKey:@"field2"], [info valueForKey:@"field3"], location];
                 NSLog(@"URL: %@", urlToSend);
                 NSString* encodedUrl = [urlToSend stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
                 NSLog(@"ENCODED 2nd: %@", encodedUrl);

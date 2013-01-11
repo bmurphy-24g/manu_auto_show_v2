@@ -29,6 +29,7 @@
     NSString* number;
     UIImageView* testImageView;
     NSString* currentURL;
+    BluetoothManager* btManager;
 }
 @property (nonatomic, copy) UIImage* currentImage;
 @property (nonatomic, copy) NSString* fileName;

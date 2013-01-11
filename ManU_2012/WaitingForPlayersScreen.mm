@@ -133,7 +133,8 @@ bool clientDisconnected = NO;
 {
     NSHTTPURLResponse* urlResponse = nil;
     NSError *error = nil;
-    NSString *urlString = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/resources/ios_tracking.php"];
+    NSString* location = [[NSUserDefaults standardUserDefaults] stringForKey:@"location"];
+    NSString *urlString = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/resources/ios_tracking.php&location_id=%@", [location lowercaseString]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setTimeoutInterval:7.5f];
     [request setURL:[NSURL URLWithString:urlString]];
@@ -335,6 +336,12 @@ bool clientDisconnected = NO;
         [screenSaver4Icon3 release];
         screenSaver4Icon3 = nil;
     }
+    if(iconsSaver4 != nil)
+    {
+        [iconsSaver4 removeFromSuperview];
+        [iconsSaver4 release];
+        iconsSaver4 = nil;
+    }
     
 }
 
@@ -480,7 +487,7 @@ bool clientDisconnected = NO;
     } else {
         screenSaver2Icon1 = [[UIImageView alloc] initWithFrame:CGRectMake(-390, 245, 390, 60)];
         screenSaver2Icon2 = [[UIImageView alloc] initWithFrame:CGRectMake(-472, 309, 472, 60)];
-        screenSaver2Icon3 = [[UIImageView alloc] initWithFrame:CGRectMake(-430, 373, 340, 121)];
+        screenSaver2Icon3 = [[UIImageView alloc] initWithFrame:CGRectMake(-430, 373, 430, 121)];
     }
     
     [screenSaver2Icon1 setImage:[UIImage imageNamed:@"text_2a.png"]];
@@ -699,12 +706,18 @@ bool clientDisconnected = NO;
 
 -(void) screenSaver4FadeIn
 {
+    iconsSaver4 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 507, 294, 163)];
+    [iconsSaver4 setImage:[UIImage imageNamed:@"icons.png"]];
+    [iconsSaver4 setAlpha:0.0f];
+    [newView addSubview:iconsSaver4];
     [UIView animateWithDuration:2.0F animations:^()
      {
          [screenSaverBackground4 setAlpha:1.0F];
+         [iconsSaver4 setAlpha:1.0f];
      }
                      completion:^(BOOL finished)
      {
+         
          if(!playerHasJoined)
              [self screenSaver4IconsSlideIn];
      }];
@@ -795,21 +808,26 @@ bool clientDisconnected = NO;
                {
                    CGRect cgr3 = screenSaver4Icon3.frame;
                    [screenSaver4Icon3 setFrame:CGRectMake(-1073, cgr3.origin.y, cgr3.size.width, cgr3.size.height)];
+                   [iconsSaver4 setAlpha:0.0f];
                }
                                completion:^(BOOL finished)
                {
                    [screenSaver4Icon1 removeFromSuperview];
                    [screenSaver4Icon2 removeFromSuperview];
                    [screenSaver4Icon3 removeFromSuperview];
+                   [iconsSaver4 removeFromSuperview];
                    [screenSaver4Icon1 setImage:nil];
                    [screenSaver4Icon2 setImage:nil];
                    [screenSaver4Icon3 setImage:nil];
+                   [iconsSaver4 setImage:nil];
                    [screenSaver4Icon1 release];
                    [screenSaver4Icon2 release];
                    [screenSaver4Icon3 release];
+                   [iconsSaver4 release];
                    screenSaver4Icon1 = nil;
                    screenSaver4Icon2 = nil;
                    screenSaver4Icon3 = nil;
+                   iconsSaver4 = nil;
                    if(!playerHasJoined)
                        [self screenSaver1FadeIn];
                }];
@@ -882,10 +900,10 @@ bool clientDisconnected = NO;
     screenSaverBackground3 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
     screenSaverBackground4 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
     
-    [screenSaverBackground1 setImage:[UIImage imageNamed:@"background_1.jpg"]];
-    [screenSaverBackground2 setImage:[UIImage imageNamed:@"background_2.jpg"]];
-    [screenSaverBackground3 setImage:[UIImage imageNamed:@"background_3b.jpg"]];
-    [screenSaverBackground4 setImage:[UIImage imageNamed:@"background_4b.jpg"]];
+    [screenSaverBackground1 setImage:[UIImage imageNamed:@"background_1.png"]];
+    [screenSaverBackground2 setImage:[UIImage imageNamed:@"background_2.png"]];
+    [screenSaverBackground3 setImage:[UIImage imageNamed:@"background_3b.png"]];
+    [screenSaverBackground4 setImage:[UIImage imageNamed:@"background_4a.png"]];
     
     [self startScreenSaverAnimations];
 }
@@ -1695,6 +1713,16 @@ float leftAccel = 0.0f, rightAccel = 0.0f, rightAccelToUse = 0.0f, leftAccelToUs
     
     b2Vec2 rightPlayerPos = BodyRight->GetPosition();
     float32 angle = BodyRight->GetAngle();
+    
+    angle = BodyLeft->GetAngle();
+    BodyLeft->SetLinearDamping(0);
+    BodyLeft->SetAngularDamping(0);
+    BodyLeft->SetAngularVelocity(0);
+    BodyLeft->SetLinearVelocity(b2Vec2(0,leftAccel * 40 * -1));
+    previousLeftAccel = leftAccel;
+    b2Vec2 loc = BodyLeft->GetPosition();
+    BodyLeft->SetTransform(loc, angle);
+    
     if(isSinglePlayerGame)
     {
         //NSLog(@"Update single player");
@@ -1719,14 +1747,7 @@ float leftAccel = 0.0f, rightAccel = 0.0f, rightAccelToUse = 0.0f, leftAccelToUs
         previousRightAccel = rightAccel;
         BodyRight->SetTransform(rightPlayerPos, angle);
     }
-    angle = BodyLeft->GetAngle();
-    BodyLeft->SetLinearDamping(0);
-    BodyLeft->SetAngularDamping(0);
-    BodyLeft->SetAngularVelocity(0);
-    BodyLeft->SetLinearVelocity(b2Vec2(0,leftAccel * 40 * -1));
-    previousLeftAccel = leftAccel;
-    b2Vec2 loc = BodyLeft->GetPosition();
-    BodyLeft->SetTransform(loc, angle);
+    
     //b2Vec2 loc = b2Vec2(location.x, location.y);
     //rightPlayerPos = BodyRight->GetPosition();
     
