@@ -326,7 +326,7 @@ int currentStickState;
         control.active = YES;
         control.delegate = self;
         [control release];
-        //sendICadeTimer = [NSTimer alloc];
+        sendICadeTimer = [NSTimer alloc];
         sendICadeTimer = [NSTimer scheduledTimerWithTimeInterval:0.33
                                          target:self
                                        selector:@selector(sendICadeDataToServer)

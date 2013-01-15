@@ -134,7 +134,7 @@ bool clientDisconnected = NO;
     NSHTTPURLResponse* urlResponse = nil;
     NSError *error = nil;
     NSString* location = [[NSUserDefaults standardUserDefaults] stringForKey:@"location"];
-    NSString *urlString = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/resources/ios_tracking.php&location_id=%@", [location lowercaseString]];
+    NSString *urlString = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/resources/ios_tracking.php?location_id=%@", [location lowercaseString]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setTimeoutInterval:7.5f];
     [request setURL:[NSURL URLWithString:urlString]];
