@@ -22,4 +22,6 @@
 -(void)pauseTimer;
 -(void)startCountdown;
 -(void)stopCountdown;
+-(void)clear;
+
 @end

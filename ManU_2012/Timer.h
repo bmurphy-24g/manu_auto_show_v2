@@ -19,5 +19,6 @@
 -(void)stopTimer;
 -(id) spawn: (CCLayer*) layer;
 -(void)startTimer;
+-(void)clear;
 
 @end

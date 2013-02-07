@@ -243,10 +243,10 @@
 
 - (void) dealloc
 {
-	[string_ release];
+    [string_ release];
 	[fontName_ release];
-
-	[super dealloc];
+    
+    [super dealloc];
 }
 
 - (NSString*) description

@@ -76,12 +76,30 @@ bool gameIsOver = false;
 }
 
 -(void)show {
+    if(_timerLabel == nil)
+    {
+        _timerLabel = [CCLabelTTF labelWithString:@"01:30" fontName:@"Arial" fontSize:42];
+        _timerLabel.position = ccp(512, 118);
+        [_timerLabel retain];
+    }
+    
     [_timerLabel setString:@"01:30"];
     [parentLayer addChild: _timerLabel z:0 tag:96666];
 }
 
 -(void)hide {
     [parentLayer removeChildByTag:96666 cleanup:NO];
+}
+
+-(void)clear
+{
+    NSLog(@"clear");
+    if(_timerLabel)
+    {
+        NSLog(@"deallocing _timerLabel");
+        [_timerLabel release];
+        _timerLabel = nil;
+    }
 }
 
 -(void)dealloc

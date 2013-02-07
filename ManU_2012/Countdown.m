@@ -50,6 +50,12 @@
 }
 
 -(void)startCountdown {
+    if(_timerLabel == nil)
+    {
+        _timerLabel = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:250];
+        _timerLabel.position = ccp(512, 384);
+        [_timerLabel retain];
+    }
     seconds = 6;
     [_timerLabel setString:@"5"];
     [parentLayer addChild:_timerLabel z:0 tag:77777];
@@ -59,6 +65,15 @@
 -(void)stopCountdown {
     [[[CCDirector sharedDirector] scheduler] pauseTarget:self];
     [parentLayer removeChildByTag:77777 cleanup:NO];
+}
+
+-(void)clear
+{
+    if(_timerLabel)
+    {
+        [_timerLabel release];
+        _timerLabel = nil;
+    }
 }
 
 -(void)dealloc

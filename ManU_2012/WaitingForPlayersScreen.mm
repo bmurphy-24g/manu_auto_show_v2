@@ -32,101 +32,102 @@ bool clientDisconnected = NO;
 -(id) init
 {
 	if( (self=[super init])) {
-                
-        //Still need to handle error
-        NSError *error = nil;
-        
-        winSize = [CCDirector sharedDirector].winSize;
-        newView = [[UIView alloc] initWithFrame:[[CCDirector sharedDirector] view].frame];
-        [[[CCDirector sharedDirector] view] addSubview:newView];
-        
-        // 89x264 146x195
-        playerOneImageView = [[UIImageView alloc] initWithFrame:CGRectMake(89, 263, 146, 195)];
-        playerOneImageView.contentMode = UIViewContentModeScaleAspectFit;
-        playerOneImageView.clipsToBounds = NO;
-        playerOneImageView.layer.masksToBounds = NO;
-        
-        // 777x264
-        playerTwoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(777, 263, 146, 195)];
-        playerTwoImageView.contentMode = UIViewContentModeScaleAspectFit;
-        playerTwoImageView.clipsToBounds = NO;
-        playerTwoImageView.layer.masksToBounds = NO;
-        
-        // 10x470
-        playerOneNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 469, 333, 45)];
-        
-        playerTwoNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(700, 469, 333, 45)];
-        
-        scoreScreenPlayerOneGoals = [[UILabel alloc] initWithFrame:CGRectMake(13, 306, 270, 45)];
-        scoreScreenPlayerOneShots = [[UILabel alloc] initWithFrame:CGRectMake(13, 383, 270, 45)];
-        scoreScreenPlayerTwoGoals = [[UILabel alloc] initWithFrame:CGRectMake(730, 306, 270, 45)];
-        scoreScreenPlayerTwoShots = [[UILabel alloc] initWithFrame:CGRectMake(730, 383, 270, 45)];
-        
-        // 524x157
-        startGameButton = [[UIButton alloc] initWithFrame:CGRectMake(524, 157, 253, 106)];
-        
-        startOnePlayerButton = [[UIButton alloc] initWithFrame:CGRectMake(524, 157, 253, 106)];
-        
-        NSString *singlePath = [NSString stringWithFormat:@"%@/whistle1.mp3", [[NSBundle mainBundle] resourcePath]];
-        NSURL *singleURL = [NSURL fileURLWithPath:singlePath];
-        singleWhistlePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:singleURL error:&error];
-        singleWhistlePlayer.numberOfLoops = 0;
-        
-        NSString *triplePath = [NSString stringWithFormat:@"%@/whistle3.mp3", [[NSBundle mainBundle] resourcePath]];
-        NSURL *tripleURL = [NSURL fileURLWithPath:triplePath];
-        tripleWhistlePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:tripleURL error:&error];
-        tripleWhistlePlayer.numberOfLoops = 0;
-        
-        NSString *crowdPath = [NSString stringWithFormat:@"%@/cheer.mp3", [[NSBundle mainBundle] resourcePath]];
-        NSURL *crowdURL = [NSURL fileURLWithPath:crowdPath];
-        crowdPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:crowdURL error:&error];
-        crowdPlayer.numberOfLoops = 0;
-        
-        // 201x97 35x45
-        smallPlayerOneImageView = [[UIImageView alloc] initWithFrame:CGRectMake(201, 97, 35, 45)];
-        [smallPlayerOneImageView retain];
-        
-        // 785x97 35x45
-        smallPlayerTwoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(785, 97, 35, 45)];
-        [smallPlayerTwoImageView retain];
-        
-        //236x97 185x45
-        smallPlayerOneNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(250, 97, 185, 45)];
-        [smallPlayerOneNameLabel retain];
-        
-        //700x97 185x45 //822
-        smallPlayerTwoNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(586, 97, 185, 45)];
-        [smallPlayerTwoNameLabel retain];
-        
-        playerOneImage = nil;
-        [playerOneImage retain];
-        playerTwoImage = nil;
-        [playerTwoImage retain];
-        
-        countdown = [Countdown alloc];
-        
-        // init physics
-        [self initPhysics];
-        
-        [[[CCDirector sharedDirector] scheduler] scheduleSelector:@selector(update:) forTarget:self interval:0 paused:YES];
-        [[[CCDirector sharedDirector] scheduler] scheduleSelector:@selector(tick:) forTarget:self interval:0 paused:YES];
-        
-        ball = [Ball alloc];
-        [ball spawn:self :world :groundBody];
-        [self spawnPlayers];
-        
-        timer = [[Timer alloc] spawn:self];
-        
-        [countdown spawn:self];
-        
-        
+        [self initializeGameRelatedStuff];
         
         [self setUpWaitScreen:YES :YES];
         
         playerHasJoined = NO;
-        
 	}
 	return self;
+}
+
+-(void) initializeGameRelatedStuff
+{
+    //Still need to handle error
+    NSError *error = nil;
+    
+    winSize = [CCDirector sharedDirector].winSize;
+    newView = [[UIView alloc] initWithFrame:[[CCDirector sharedDirector] view].frame];
+    [[[CCDirector sharedDirector] view] addSubview:newView];
+    
+    // 89x264 146x195
+    playerOneImageView = [[UIImageView alloc] initWithFrame:CGRectMake(89, 263, 146, 195)];
+    playerOneImageView.contentMode = UIViewContentModeScaleAspectFit;
+    playerOneImageView.clipsToBounds = NO;
+    playerOneImageView.layer.masksToBounds = NO;
+    
+    // 777x264
+    playerTwoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(777, 263, 146, 195)];
+    playerTwoImageView.contentMode = UIViewContentModeScaleAspectFit;
+    playerTwoImageView.clipsToBounds = NO;
+    playerTwoImageView.layer.masksToBounds = NO;
+    
+    // 10x470
+    playerOneNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 469, 333, 45)];
+    
+    playerTwoNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(700, 469, 333, 45)];
+    
+    scoreScreenPlayerOneGoals = [[UILabel alloc] initWithFrame:CGRectMake(13, 306, 270, 45)];
+    scoreScreenPlayerOneShots = [[UILabel alloc] initWithFrame:CGRectMake(13, 383, 270, 45)];
+    scoreScreenPlayerTwoGoals = [[UILabel alloc] initWithFrame:CGRectMake(730, 306, 270, 45)];
+    scoreScreenPlayerTwoShots = [[UILabel alloc] initWithFrame:CGRectMake(730, 383, 270, 45)];
+    
+    // 524x157
+    startGameButton = [[UIButton alloc] initWithFrame:CGRectMake(524, 157, 253, 106)];
+    
+    startOnePlayerButton = [[UIButton alloc] initWithFrame:CGRectMake(524, 157, 253, 106)];
+    
+    NSString *singlePath = [NSString stringWithFormat:@"%@/whistle1.mp3", [[NSBundle mainBundle] resourcePath]];
+    NSURL *singleURL = [NSURL fileURLWithPath:singlePath];
+    singleWhistlePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:singleURL error:&error];
+    singleWhistlePlayer.numberOfLoops = 0;
+    
+    NSString *triplePath = [NSString stringWithFormat:@"%@/whistle3.mp3", [[NSBundle mainBundle] resourcePath]];
+    NSURL *tripleURL = [NSURL fileURLWithPath:triplePath];
+    tripleWhistlePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:tripleURL error:&error];
+    tripleWhistlePlayer.numberOfLoops = 0;
+    
+    NSString *crowdPath = [NSString stringWithFormat:@"%@/cheer.mp3", [[NSBundle mainBundle] resourcePath]];
+    NSURL *crowdURL = [NSURL fileURLWithPath:crowdPath];
+    crowdPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:crowdURL error:&error];
+    crowdPlayer.numberOfLoops = 0;
+    
+    // 201x97 35x45
+    smallPlayerOneImageView = [[UIImageView alloc] initWithFrame:CGRectMake(201, 97, 35, 45)];
+    [smallPlayerOneImageView retain];
+    
+    // 785x97 35x45
+    smallPlayerTwoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(785, 97, 35, 45)];
+    [smallPlayerTwoImageView retain];
+    
+    //236x97 185x45
+    smallPlayerOneNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(250, 97, 185, 45)];
+    [smallPlayerOneNameLabel retain];
+    
+    //700x97 185x45 //822
+    smallPlayerTwoNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(586, 97, 185, 45)];
+    [smallPlayerTwoNameLabel retain];
+    
+    playerOneImage = nil;
+    [playerOneImage retain];
+    playerTwoImage = nil;
+    [playerTwoImage retain];
+    
+    countdown = [Countdown alloc];
+    
+    // init physics
+    [self initPhysics];
+    
+    [[[CCDirector sharedDirector] scheduler] scheduleSelector:@selector(update:) forTarget:self interval:0 paused:YES];
+    [[[CCDirector sharedDirector] scheduler] scheduleSelector:@selector(tick:) forTarget:self interval:0 paused:YES];
+    
+    ball = [Ball alloc];
+    [ball spawn:self :world :groundBody];
+    [self spawnPlayers];
+    
+    timer = [[Timer alloc] spawn:self];
+    
+    [countdown spawn:self];
 }
 
 -(void)talkToKevinsTrackingPage
@@ -135,6 +136,7 @@ bool clientDisconnected = NO;
     NSError *error = nil;
     NSString* location = [[NSUserDefaults standardUserDefaults] stringForKey:@"location"];
     NSString *urlString = [NSString stringWithFormat:@"http://social-gen.com/chevroletfc/ipad/resources/ios_tracking.php?location_id=%@", [location lowercaseString]];
+    NSLog(@"kevin -> %@", urlString);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setTimeoutInterval:7.5f];
     [request setURL:[NSURL URLWithString:urlString]];
@@ -155,8 +157,6 @@ bool clientDisconnected = NO;
 
 -(void)setUpWaitScreen: (bool)disconnected  :(bool)init//Game finished
 {
-    [self talkToKevinsTrackingPage];
-    
     if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]
         && [[UIScreen mainScreen] scale] == 2.0) {
         bg = [CCSprite spriteWithFile:@"results_retina.jpg"];
@@ -227,7 +227,7 @@ bool clientDisconnected = NO;
     [startOnePlayerButton setBackgroundImage:[UIImage imageNamed:@"1player_btn.png"] forState:UIControlStateNormal];
     [startOnePlayerButton addTarget:self action:@selector(startOnePlayerPressedAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    
+    [self talkToKevinsTrackingPage];
     
     if(!disconnected)
         scoreScreenTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(finishedScoreScreen) userInfo:nil repeats:NO];
@@ -959,17 +959,17 @@ bool clientDisconnected = NO;
     smallPlayerTwoNameLabel.text = playerTwoName;
     [newView addSubview:smallPlayerTwoNameLabel];
     
-    contactListener = new ContactListener(FixtureLeft, FixtureRight, ball.Fixture);
-    world->SetContactListener(contactListener);
-    
     //Set up sprites
     [self showSprites];
     
     [self spawnScoreboards];
     
     NSLog(@"before");
-    [ball addBall];
+    [ball addBall:world];
     NSLog(@"after");
+    
+    contactListener = new ContactListener(FixtureLeft, FixtureRight, ball.Fixture);
+    world->SetContactListener(contactListener);
     
     CCNode *parent = [CCNode node];
     [self addChild:parent z:-1 tag:0];
@@ -1112,10 +1112,40 @@ int LAST_PLAYER_TOUCH_SERVER = NO_PLAYER_SERVER;
     [self removeChildByTag:R_SCORE_LABEL cleanup:NO];
     [self removeChildByTag:R_SHOTS_LABEL cleanup:NO];
     
-    _leftScoreLabel = nil;
-    _leftShotsOnGoalLabel = nil;
-    _rightScoreLabel = nil;
-    _rightShotsOnGoalLabel = nil;
+    if(_leftScoreLabel)
+    {
+        //[_leftScoreLabel removeFromParentAndCleanup:YES];
+        [_leftScoreLabel release];
+        _leftScoreLabel = nil;
+    }
+    if(_leftShotsOnGoalLabel)
+    {
+        //[_leftShotsOnGoalLabel removeFromParentAndCleanup:YES];
+        [_leftShotsOnGoalLabel release];
+        _leftShotsOnGoalLabel = nil;
+    }
+    if(_rightScoreLabel)
+    {
+        //[_rightScoreLabel removeFromParentAndCleanup:YES];
+        [_rightScoreLabel release];
+        _rightScoreLabel = nil;
+    }
+    if(_rightShotsOnGoalLabel)
+    {
+        //[_rightShotsOnGoalLabel removeFromParentAndCleanup:YES];
+        [_rightShotsOnGoalLabel release];
+        _rightShotsOnGoalLabel = nil;
+    }
+    if(playerOneName)
+    {
+        [playerOneName release];
+        playerOneName = nil;
+    }
+    if(playerTwoName)
+    {
+        [playerTwoName release];
+        playerTwoName = nil;
+    }
     
     [[[CCDirector sharedDirector] scheduler] pauseTarget:self];
     [_matchmakingServer endSession];
@@ -1128,7 +1158,33 @@ int LAST_PLAYER_TOUCH_SERVER = NO_PLAYER_SERVER;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RightScores" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RightShoots" object:nil];
     
-    contactListener = NULL;
+    //contactListener = NULL;
+    
+    [countdown clear];
+    [timer clear];
+    if(BodyRight)
+        world->DestroyBody(BodyRight);
+    if(BodyLeft)
+        world->DestroyBody(BodyLeft);
+    /*NSLog(@"before ball");
+    if(BodyBall)
+        world->DestroyBody(BodyBall);
+    NSLog(@"after ball");*/
+    if(groundBody)
+        world->DestroyBody(groundBody);
+    if(world)
+    {
+        delete world;
+        world = NULL;
+    }
+    if(contactListener)
+    {
+        delete contactListener;
+        contactListener = NULL;
+    }
+
+    [self initPhysics];
+    [self spawnPlayers];
     
     if(clientDisconnected)
         [self setUpWaitScreen:YES :NO];
@@ -1482,7 +1538,7 @@ bool receivedStartGame = NO;
 	
 	world->SetContinuousPhysics(true);
 	
-	m_debugDraw = new GLESDebugDraw( PTM_RATIO );
+	/*m_debugDraw = new GLESDebugDraw( PTM_RATIO );
 	world->SetDebugDraw(m_debugDraw);
 	
 	uint32 flags = 0;
@@ -1491,7 +1547,7 @@ bool receivedStartGame = NO;
 	//		flags += b2Draw::e_aabbBit;
 	//		flags += b2Draw::e_pairBit;
 	//		flags += b2Draw::e_centerOfMassBit;
-	m_debugDraw->SetFlags(flags);
+	m_debugDraw->SetFlags(flags);*/
 	
 	
 	// Define the ground body.
@@ -1520,7 +1576,7 @@ bool receivedStartGame = NO;
 {
     NSLog(@"initSprites");
 	
-    [ball addBall];
+    [ball addBall:world];
     
     [self spawnPlayers];
     
@@ -1535,10 +1591,12 @@ int L_SCORE_LABEL = 44444, R_SCORE_LABEL = 44445, L_SHOTS_LABEL = 44446, R_SHOTS
     _leftScoreLabel = [CCLabelTTF labelWithString:@"0" fontName:@"Arial" fontSize:42];
     _leftScoreLabel.position = ccp(470, 648);
     [self addChild: _leftScoreLabel z:0 tag:L_SCORE_LABEL];
+    [_leftScoreLabel retain];
     
     _leftShotsOnGoalLabel = [CCLabelTTF labelWithString:@"0" fontName:@"Arial" fontSize:42];
     _leftShotsOnGoalLabel.position = ccp(174, 648);
     [self addChild: _leftShotsOnGoalLabel z:0 tag:L_SHOTS_LABEL];
+    [_leftShotsOnGoalLabel retain];
     
     [[NSNotificationCenter defaultCenter]
      addObserver:self
@@ -1556,10 +1614,12 @@ int L_SCORE_LABEL = 44444, R_SCORE_LABEL = 44445, L_SHOTS_LABEL = 44446, R_SHOTS
     _rightScoreLabel = [CCLabelTTF labelWithString:@"0" fontName:@"Arial" fontSize:42];
     _rightScoreLabel.position = ccp(555, 648);
     [self addChild: _rightScoreLabel z:0 tag:R_SCORE_LABEL];
+    [_rightScoreLabel retain];
     
     _rightShotsOnGoalLabel = [CCLabelTTF labelWithString:@"0" fontName:@"Arial" fontSize:42];
     _rightShotsOnGoalLabel.position = ccp(994, 648);
     [self addChild: _rightShotsOnGoalLabel z:0 tag:R_SHOTS_LABEL];
+    [_rightShotsOnGoalLabel retain];
     
     [[NSNotificationCenter defaultCenter]
      addObserver:self

@@ -34,7 +34,7 @@
 -(void) dealloc;
 -(void) gameOver;
 -(b2Body *) getBody;
--(void) addBall;
+-(void) addBall: (b2World*) world;
 -(void) removeBall;
 
 @end

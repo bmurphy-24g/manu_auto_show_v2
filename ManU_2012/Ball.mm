@@ -33,7 +33,7 @@ bool ballExists = NO;
     return self;
 }
 
--(void)addBall {
+-(void)addBall :(b2World*)world {
     CGPoint b = ccp(512, 368);
     
     
@@ -55,7 +55,8 @@ bool ballExists = NO;
     bodyDefBall.type = b2_dynamicBody;
     bodyDefBall.position.Set(b.x/PTM_RATIO, b.y/PTM_RATIO);
     bodyDefBall.fixedRotation = NO;
-    Body = mainWorld->CreateBody(&bodyDefBall);
+    Body = world->CreateBody(&bodyDefBall);
+    mainWorld = world;
     
     // Define another box shape for our dynamic body.
     //b2PolygonShape dynamicBoxBall;
